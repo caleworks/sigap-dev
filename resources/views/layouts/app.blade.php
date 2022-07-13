@@ -118,28 +118,28 @@
             </div>
 
             <!-- Nav Item - Stock -->
-            <li class="nav-item {{ ($active === 'stock' ) ? 'active' : '' }}">
+            <li class="nav-item {{ ($active === 'company' ) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('company') }}">
                     <i class="fas fa-fw fa-building"></i>
                     <span>Company</span></a>
             </li>
 
             <!-- Nav Item - Stock -->
-            <li class="nav-item {{ ($active === 'stock' ) ? 'active' : '' }}">
+            <li class="nav-item {{ ($active === 'category' ) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('category') }}">
                     <i class="fas fa-fw fa-indent"></i>
                     <span>Category</span></a>
             </li>
 
             <!-- Nav Item - Stock -->
-            <li class="nav-item {{ ($active === 'stock' ) ? 'active' : '' }}">
+            <li class="nav-item {{ ($active === 'unit' ) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('unit') }}">
                     <i class="fas fa-fw fa-hashtag"></i>
                     <span>Unit</span></a>
             </li>
 
             <!-- Nav Item - Stock -->
-            <li class="nav-item {{ ($active === 'stock' ) ? 'active' : '' }}">
+            <li class="nav-item {{ ($active === 'user' ) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('user') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>User</span></a>

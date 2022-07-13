@@ -30,3 +30,6 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 
 // dashboard page
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard')->middleware('auth');
+
+//user admin page
+Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth');
