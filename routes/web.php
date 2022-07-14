@@ -33,3 +33,5 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 
 //user admin page
 Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth');
+Route::get('/user/add', [App\Http\Controllers\UserController::class, 'add'])->middleware('auth');
+Route::post('/user/add', [App\Http\Controllers\UserController::class, 'store_user'])->middleware('auth');

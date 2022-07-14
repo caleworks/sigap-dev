@@ -19,4 +19,12 @@ class UserController extends Controller
             'active' => 'user',
         ]);
     }
+
+    public function add()
+    {
+        return view('admin.useradd', [
+            'title' => 'User',
+            'active' => 'user',
+        ]);
+    }
 }
