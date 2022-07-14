@@ -32,6 +32,7 @@
     @if ($title == 'User')
     <link href="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endif
+    
 
 </head>
 
@@ -344,20 +345,31 @@
     <script src="{{ url('assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
+    @if ($title == 'User')
+
+        @if ($errors->any())
+        <script>
+            $('#addUserModal').modal({
+                show: true
+            });
+        </script>
+        @endif
+
+    <!-- Page level plugins -->
+    <script src="{{ url('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ url('assets/js/demo/datatables-demo.js') }}"></script>
+
+    @endif
+    
     <!-- Core plugin JavaScript-->
     <script src="{{ url('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="{{ url('assets/js/sb-admin-2.min.js') }}"></script>
 
-    @if ($title == 'User')
-        <!-- Page level plugins -->
-        <script src="{{ url('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-    
-        <!-- Page level custom scripts -->
-        <script src="{{ url('assets/js/demo/datatables-demo.js') }}"></script>
-    @endif
 
 </body>
 

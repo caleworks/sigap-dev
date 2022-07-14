@@ -8,13 +8,13 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">User</h1>
             <!-- Button trigger modal -->
-            <button type="button" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUserModal">
+            <button type="button" class="d-none d-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addUserModal">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Add New User
             </button>
         </div>
         
         <!-- Modal -->
-        <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModal" aria-hidden="true">
+        <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModal" aria-hidden="true" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content text-gray-900">
                     <div class="modal-header">
@@ -28,19 +28,46 @@
                             <div class="justify-content-center">
                                 <div class="row m-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Full Name" required>
+                                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Full Name" value="{{ old('name') }}" required>
+                                    @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="row m-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                                    <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" required>
+                                    @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="row m-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="Type New Password" required>
+                                    <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Type New Password" value="{{ old('password') }}" required>
+                                    @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="row m-3">
-                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                    <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Retype Entered Password" required>
+                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Retype Entered Password" value="{{ old('password_confirmation') }}" required>
+                                    @error('password_confirmation')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="row m-3">
+                                    <label for="role" class="form-label">Role</label>
+                                    <select name="role" id="role" class="form-control">
+                                        <option value="1">User</option>
+                                        <option value="0">Administrator</option>
+                                    </select>
                                 </div>
                                 @csrf
                             </div>
@@ -283,4 +310,5 @@
 
     </div>
     <!-- /.container-fluid -->
+
 @endsection
