@@ -65,8 +65,8 @@
                                 <div class="row m-3">
                                     <label for="role" class="form-label">Role</label>
                                     <select name="role" id="role" class="form-control">
-                                        <option value="1">User</option>
-                                        <option value="0">Administrator</option>
+                                        <option value="0">User</option>
+                                        <option value="1">Administrator</option>
                                     </select>
                                 </div>
                                 @csrf
@@ -93,6 +93,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>Created date</th>
                                 <th>Last update</th>
                                 <th>Action</th>
@@ -102,6 +103,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>Created date</th>
                                 <th>Last update</th>
                                 <th>Action</th>
@@ -112,6 +114,13 @@
                             <tr>
                                 <td>{{ $item['name'] }}</td>
                                 <td>{{ $item['email'] }}</td>
+                                <td>
+                                @if ( $item['role'] == 1)
+                                    Administrator    
+                                @else
+                                    User
+                                @endif
+                                </td>
                                 <td>{{ $item['created_at'] }}</td>
                                 <td>{{ $item['updated_at'] }}</td>
                                 <td>
