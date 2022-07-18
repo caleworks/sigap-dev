@@ -29,7 +29,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ url('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
-    @if ($title == 'User')
+    @if ($table == 'active')
     <link href="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     @endif
     
@@ -157,13 +157,13 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-{{--             
+            
             <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
+                <img class="sidebar-card-illustration mb-2" src="{{ url('assets/img/undraw_rocket.svg') }}" alt="...">
                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
                 <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div> --}}
+            </div>
 
         </ul>
         <!-- End of Sidebar -->
@@ -345,16 +345,15 @@
     <script src="{{ url('assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    @if ($title == 'User')
+    @if ($errors->any())
+    <script>
+        $('#addModal').modal({
+            show: true
+        });
+    </script>
+    @endif
 
-        @if ($errors->any())
-        <script>
-            $('#addUserModal').modal({
-                show: true
-            });
-        </script>
-        @endif
-
+    @if ($table == 'active')
     <!-- Page level plugins -->
     <script src="{{ url('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ url('assets/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>

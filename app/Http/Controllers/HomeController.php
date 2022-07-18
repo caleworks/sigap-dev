@@ -17,6 +17,7 @@ class HomeController extends Controller
         return view('admin.dashboard', [
             'title' => 'Dashboard',
             'active' => 'dashboard',
+            'table' => 'non-active',
         ]);
     }
 }

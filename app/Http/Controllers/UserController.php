@@ -21,6 +21,7 @@ class UserController extends Controller
         return view('admin.user', [
             'title' => 'User',
             'active' => 'user',
+            'table' => 'active',
             'users' => User::all(),
         ]);
     }
