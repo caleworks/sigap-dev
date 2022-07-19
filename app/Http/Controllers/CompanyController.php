@@ -20,7 +20,7 @@ class CompanyController extends Controller
     public function store_company(Request $request) 
     {
         $validatedData = $request->validate([
-            'name' => ['required', 'unique:companies','max:255'],
+            'company_name' => ['required', 'unique:companies','max:255'],
             'alias' => ['required', 'unique:companies', 'max:255'],
         ]);
 

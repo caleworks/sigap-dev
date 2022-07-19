@@ -27,9 +27,9 @@
                         <div class="modal-body">
                             <div class="justify-content-center">
                                 <div class="row m-3">
-                                    <label for="company-name" class="form-label">Company Name</label>
-                                    <input type="text" name="name" id="company-name" class="form-control @error('name') is-invalid @enderror" placeholder="Company Name" value="{{ old('name') }}" required>
-                                    @error('name')
+                                    <label for="company_name" class="form-label">Company Name</label>
+                                    <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="Company Name" value="{{ old('company_name') }}" required>
+                                    @error('company_name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -85,7 +85,7 @@
                         <tbody>
                             @foreach ($company as $item)
                             <tr>
-                                <td>{{ $item['name'] }}</td>
+                                <td>{{ $item['company_name'] }}</td>
                                 <td>{{ $item['alias'] }}</td>
                                 <td>{{ $item['created_at'] }}</td>
                                 <td>{{ $item['updated_at'] }}</td>
