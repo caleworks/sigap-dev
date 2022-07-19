@@ -39,3 +39,5 @@ Route::post('/user/add', [App\Http\Controllers\UserController::class, 'store_use
 Route::get('/company', [App\Http\Controllers\CompanyController::class, 'index'])->middleware('auth');
 Route::post('/company/add', [App\Http\Controllers\CompanyController::class, 'store_company'])->middleware('auth');
 Route::delete('/company/{company}', [App\Http\Controllers\CompanyController::class, 'destroy'])->middleware('auth');
+Route::get('/company/{company}/edit', [App\Http\Controllers\CompanyController::class, 'edit'])->middleware('auth');
+Route::put('/company/{company}', [App\Http\Controllers\CompanyController::class, 'update'])->middleware('auth');

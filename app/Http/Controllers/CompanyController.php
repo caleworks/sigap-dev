@@ -13,7 +13,7 @@ class CompanyController extends Controller
             'title' => 'Company',
             'active' => 'company',
             'table' => 'active',
-            'company' => Company::all(),
+            'companies' => Company::all(),
         ]);
     }
 
@@ -31,6 +31,44 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         Company::destroy($company->id);
+        return redirect('company');
+    }
+
+    public function edit(Company $company)
+    {
+        return view('admin.company', [
+            'title' => 'Company',
+            'active' => 'company',
+            'table' => 'active',
+            'company' => $company,
+            'companies' => Company::all(),
+            'edit' => true,
+        ]);
+    }
+
+    public function update(Request $request, Company $company)
+    {
+
+        if ($request->company_name != $company->company_name) 
+        {
+            $rules['company_name'] = ['required', 'unique:companies','max:255'];
+        } else 
+        {
+            $rules['company_name'] = ['required','max:255'];
+        }
+
+        if ($request->alias != $company->alias) 
+        {
+            $rules['alias'] = ['required', 'unique:companies','max:255'];
+        } else 
+        {
+            $rules['alias'] = ['required','max:255'];
+        }
+
+        $validatedData = $request->validate($rules);
+
+        Company::where('id', $company->id)->update($validatedData);
+
         return redirect('company');
     }
 }
