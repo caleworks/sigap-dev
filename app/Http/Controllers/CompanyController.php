@@ -25,9 +25,12 @@ class CompanyController extends Controller
         ]);
 
         Company::create($validatedData);
+        return redirect('company');
+    }
 
-        //return $request->all();
-
+    public function destroy(Company $company)
+    {
+        Company::destroy($company->id);
         return redirect('company');
     }
 }

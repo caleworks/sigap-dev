@@ -93,9 +93,13 @@
                                     <a href="{{ url('company/edit/'.$item['id']) }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
                                         <i class="fas fa-pen"></i>
                                     </a>
-                                    <a href="{{ url('company/delete/'.$item['id']) }}" class="btn btn-danger btn-circle btn-sm" title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
+                                    <form action="{{ url('company/'.$item['id']) }}" class="d-inline" method="POST">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="return confirm('Are you sure to delete {{ $item['company_name'] }}?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach

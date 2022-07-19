@@ -94,7 +94,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th>Created date</th>
+                                <th>Status</th>
                                 <th>Last update</th>
                                 <th>Action</th>
                             </tr>
@@ -104,7 +104,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th>Created date</th>
+                                <th>Status</th>
                                 <th>Last update</th>
                                 <th>Action</th>
                             </tr>
@@ -121,15 +121,27 @@
                                     User
                                 @endif
                                 </td>
-                                <td>{{ $item['created_at'] }}</td>
+                                <td>
+                                @if ( $item['is_active'] == 1 )
+                                    Active    
+                                @elseif ( $item['is_active'] == 0 ) 
+                                    Disabled
+                                @endif
+                                </td>
                                 <td>{{ $item['updated_at'] }}</td>
                                 <td>
-                                    <a href="{{ url('user/edit/'.$item['id']) }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
-                                        <i class="fas fa-pen"></i>
+                                    <a href="{{ url('user/reset/'.$item['id']) }}" class="btn btn-warning btn-circle btn-sm" title="Reset Password">
+                                        <i class="fas fa-key"></i>
                                     </a>
-                                    <a href="{{ url('user/delete/'.$item['id']) }}" class="btn btn-danger btn-circle btn-sm" title="Delete">
-                                        <i class="fas fa-trash"></i>
+                                    @if ( $item['is_active'] == 1 )    
+                                    <a href="{{ url('user/disable/'.$item['id']) }}" class="btn btn-danger btn-circle btn-sm" title="Disable">
+                                        <i class="fas fa-ban"></i>
                                     </a>
+                                    @elseif ( $item['is_active'] == 0 ) 
+                                    <a href="{{ url('user/enable/'.$item['id']) }}" class="btn btn-success btn-circle btn-sm" title="Enable">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach
