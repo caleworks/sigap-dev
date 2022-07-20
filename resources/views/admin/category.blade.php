@@ -18,27 +18,27 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content text-gray-900">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addModal">Add New Company</h5>
+                        <h5 class="modal-title" id="addModal">Add New Category</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('company.store') }}" method="post">
+                    <form action="{{ route('category.store') }}" method="post">
                         <div class="modal-body">
                             <div class="justify-content-center">
                                 <div class="row m-3">
-                                    <label for="company_name" class="form-label">Company Name</label>
-                                    <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="Company Name" value="{{ old('company_name') }}" required>
-                                    @error('company_name')
+                                    <label for="category" class="form-label">Category Name</label>
+                                    <input type="text" name="category" id="category" class="form-control @error('category') is-invalid @enderror" placeholder="Category Name" value="{{ old('category') }}" required>
+                                    @error('category')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                     @enderror
                                 </div>
                                 <div class="row m-3">
-                                    <label for="alias" class="form-label">Alias</label>
-                                    <input type="text" name="alias" id="alias" class="form-control @error('alias') is-invalid @enderror" placeholder="Alias" value="{{ old('alias') }}" required>
-                                    @error('alias')
+                                    <label for="slug" class="form-label">Slug</label>
+                                    <input type="text" name="slug" id="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Slug" value="{{ old('slug') }}" required>
+                                    @error('slug')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -66,8 +66,8 @@
                     <table class="table table-bordered text-gray-900" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Alias</th>
+                                <th>Category</th>
+                                <th>Slug</th>
                                 <th>Created date</th>
                                 <th>Last update</th>
                                 <th>Action</th>
@@ -75,28 +75,28 @@
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Name</th>
-                                <th>Alias</th>
+                                <th>Category</th>
+                                <th>Slug</th>
                                 <th>Created date</th>
                                 <th>Last update</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($companies as $item)
+                            @foreach ($categories as $item)
                             <tr>
-                                <td>{{ $item['company_name'] }}</td>
-                                <td>{{ $item['alias'] }}</td>
+                                <td>{{ $item['category'] }}</td>
+                                <td>{{ $item['slug'] }}</td>
                                 <td>{{ $item['created_at'] }}</td>
                                 <td>{{ $item['updated_at'] }}</td>
                                 <td>
-                                    <a href="{{ url('company/'.$item['id'].'/edit') }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
+                                    <a href="{{ url('category/'.$item['id'].'/edit') }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
                                         <i class="fas fa-pen"></i>
                                     </a>
-                                    <form action="{{ url('company/'.$item['id']) }}" class="d-inline" method="POST">
+                                    <form action="{{ url('category/'.$item['id']) }}" class="d-inline" method="POST">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="return confirm('Are you sure to delete {{ $item['company_name'] }}?')">
+                                        <button class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="return confirm('Are you sure to delete {{ $item['category'] }}?')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -120,22 +120,22 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-gray-900">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModal">Edit Company</h5>
-                    <a href="{{ url('company') }}">
+                    <h5 class="modal-title" id="editModal">Edit Category</h5>
+                    <a href="{{ url('category') }}">
                         <button type="button" class="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </a>
                 </div>
-                <form action="{{ route('company.update', $company->id ) }}" method="post">
+                <form action="{{ route('category.update', $category->id ) }}" method="post">
                     @method('put')
                     @csrf
                     <div class="modal-body">
                         <div class="justify-content-center">
                             <div class="row m-3">
-                                <label for="company_name" class="form-label">Company Name</label>
-                                <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" 
-                                    placeholder="Company Name" value="{{ old('company_name', $company->company_name) }}" required>
+                                <label for="category" class="form-label">Category Name</label>
+                                <input type="text" name="category" id="category" class="form-control @error('category') is-invalid @enderror" 
+                                    placeholder="Category Name" value="{{ old('category', $category->category) }}" required>
                                 @error('company_name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -143,10 +143,10 @@
                                 @enderror
                             </div>
                             <div class="row m-3">
-                                <label for="alias" class="form-label">Alias</label>
-                                <input type="text" name="alias" id="alias" class="form-control @error('alias') is-invalid @enderror" 
-                                    placeholder="Alias" value="{{ old('alias', $company->alias) }}" required>
-                                @error('alias')
+                                <label for="slug" class="form-label">Slug</label>
+                                <input type="text" name="slug" id="slug" class="form-control @error('slug') is-invalid @enderror" 
+                                    placeholder="Slug" value="{{ old('slug', $category->slug) }}" required>
+                                @error('slug')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.category', [
+            'title' => 'Category',
+            'active' => 'category',
+            'table' => 'active',
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -34,7 +40,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'category' => ['required', 'unique:categories','max:255'],
+            'slug' => ['required', 'unique:categories', 'max:255'],
+        ]);
+
+        Category::create($validatedData);
+        return redirect('category');
     }
 
     /**
@@ -56,7 +68,14 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.category', [
+            'title' => 'Category',
+            'active' => 'category',
+            'table' => 'active',
+            'category' => Category::findOrFail($id),
+            'categories' => Category::all(),
+            'edit' => true,
+        ]);
     }
 
     /**
@@ -66,9 +85,25 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        if ($request->slug != $category->slug) {
+            $rules = [
+                'slug' => ['required', 'unique:categories', 'max:255'],
+                'category' => ['required', 'max:255'],
+            ];
+        } else {
+            $rules = [
+                'slug' => ['required', 'max:255'],
+                'category' => ['required', 'max:255'],
+            ];
+        }
+
+        $validatedData = $request->validate($rules);
+
+        //return $validatedData;
+        Category::whereId($category->id)->update($validatedData);
+        return redirect('category');
     }
 
     /**
@@ -79,6 +114,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::destroy($id);
+        return redirect('category');
     }
 }

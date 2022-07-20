@@ -6,10 +6,10 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">User</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
             <!-- Button trigger modal -->
             <button type="button" class="d-none d-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addModal">
-                <i class="fas fa-plus fa-sm text-white-50"></i> Add New User
+                <i class="fas fa-plus fa-sm text-white-50"></i> Add New {{ $title }}
             </button>
         </div>
         
@@ -84,7 +84,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">User Data</h6>
+                <h6 class="m-0 font-weight-bold text-primary">{{ $title }} Data</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

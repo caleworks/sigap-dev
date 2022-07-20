@@ -20,29 +20,25 @@ use App\Http\Controllers\UnitController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 // public search page
 Route::get('/', [App\Http\Controllers\SearchController::class, 'index'])->name('home');
 
 // login
-Route::get('/login', [App\Http\Controllers\AuthController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login', [App\Http\Controllers\AuthController::class, 'authenticate'])->middleware('guest');
-Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::get('login', [App\Http\Controllers\AuthController::class, 'index'])->name('login')->middleware('guest');
+Route::post('login', [App\Http\Controllers\AuthController::class, 'authenticate'])->middleware('guest');
+Route::post('logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 // dashboard page
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard')->middleware('auth');
 
-//company admin page
+// company admin page
 Route::resource('company', CompanyController::class)->middleware('auth');
 
-//category admin page
+// category admin page
 Route::resource('category', CategoryController::class)->middleware('auth');
 
-//unit admin page
+// unit admin page
 Route::resource('unit', UnitController::class)->middleware('auth');
 
-//user admin page
+// user admin page
 Route::resource('user', UserController::class)->middleware('auth');
