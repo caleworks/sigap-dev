@@ -6,6 +6,8 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +35,14 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 // dashboard page
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard')->middleware('auth');
 
-//user admin page
-Route::resource('user', UserController::class)->middleware('auth');
-
 //company admin page
 Route::resource('company', CompanyController::class)->middleware('auth');
+
+//category admin page
+Route::resource('category', CategoryController::class)->middleware('auth');
+
+//unit admin page
+Route::resource('unit', UnitController::class)->middleware('auth');
+
+//user admin page
+Route::resource('user', UserController::class)->middleware('auth');

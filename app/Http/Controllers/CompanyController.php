@@ -90,29 +90,22 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
 
-        if ($request->alias != $company->alias && $request->company_name != $company->company_name) 
-        {
+        if ($request->alias != $company->alias && $request->company_name != $company->company_name) {
             $rules = [
                 'alias' => ['required', 'unique:companies', 'max:255'],
                 'company_name' => ['required', 'unique:companies', 'max:255'],
             ];
-        } 
-        else if ($request->alias == $company->alias && $request->company_name != $company->company_name) 
-        {
+        } else if ($request->alias == $company->alias && $request->company_name != $company->company_name) {
             $rules = [
                 'alias' => ['required', 'max:255'],
                 'company_name' => ['required', 'unique:companies', 'max:255'],
             ];
-        } 
-        else if ($request->alias != $company->alias && $request->company_name == $company->company_name) 
-        {
+        } else if ($request->alias != $company->alias && $request->company_name == $company->company_name) {
             $rules = [
                 'alias' => ['required', 'unique:companies', 'max:255'],
                 'company_name' => ['required', 'max:255'],
             ];
-        } 
-        else 
-        {
+        } else {
             $rules = [
                 'alias' => ['required', 'max:255'],
                 'company_name' => ['required', 'max:255'],
