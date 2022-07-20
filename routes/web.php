@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
@@ -32,12 +34,7 @@ Route::post('/logout', [App\Http\Controllers\AuthController::class, 'logout'])->
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard')->middleware('auth');
 
 //user admin page
-Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->middleware('auth');
-Route::post('/user/add', [App\Http\Controllers\UserController::class, 'store_user'])->middleware('auth');
+Route::resource('user', UserController::class)->middleware('auth');
 
 //company admin page
-Route::get('/company', [App\Http\Controllers\CompanyController::class, 'index'])->middleware('auth');
-Route::post('/company/add', [App\Http\Controllers\CompanyController::class, 'store_company'])->middleware('auth');
-Route::delete('/company/{company}', [App\Http\Controllers\CompanyController::class, 'destroy'])->middleware('auth');
-Route::get('/company/{company}/edit', [App\Http\Controllers\CompanyController::class, 'edit'])->middleware('auth');
-Route::put('/company/{company}', [App\Http\Controllers\CompanyController::class, 'update'])->middleware('auth');
+Route::resource('company', CompanyController::class)->middleware('auth');

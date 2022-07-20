@@ -23,7 +23,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ url('user/add') }}" method="post">
+                    <form action="{{ url('user') }}" method="post">
                         <div class="modal-body">
                             <div class="justify-content-center">
                                 <div class="row m-3">

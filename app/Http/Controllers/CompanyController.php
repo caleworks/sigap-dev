@@ -7,6 +7,11 @@ use App\Models\Company;
 
 class CompanyController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view('admin.company', [
@@ -17,7 +22,23 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function store_company(Request $request) 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
             'company_name' => ['required', 'unique:companies','max:255'],
@@ -28,47 +49,80 @@ class CompanyController extends Controller
         return redirect('company');
     }
 
-    public function destroy(Company $company)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-        Company::destroy($company->id);
-        return redirect('company');
+        //
     }
 
-    public function edit(Company $company)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         return view('admin.company', [
             'title' => 'Company',
             'active' => 'company',
             'table' => 'active',
-            'company' => $company,
+            'company' => Company::findOrFail($id),
             'companies' => Company::all(),
             'edit' => true,
         ]);
+
+        //return Company::findOrFail($id);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, Company $company)
     {
 
-        if ($request->company_name != $company->company_name) 
-        {
-            $rules['company_name'] = ['required', 'unique:companies','max:255'];
-        } else 
-        {
-            $rules['company_name'] = ['required','max:255'];
+        $rules = [
+            'company_name' => ['required', 'max:255'],
+            'alias' => ['required', 'max:255'],
+        ];
+
+        if ($request->alias != $company->alias) {
+            $rules = [
+                'alias' => ['required', 'unique:companies', 'max:255'],
+            ];
         }
 
-        if ($request->alias != $company->alias) 
-        {
-            $rules['alias'] = ['required', 'unique:companies','max:255'];
-        } else 
-        {
-            $rules['alias'] = ['required','max:255'];
+        if ($request->company_name != $company->company_name) {
+            $rules = [
+                'company_name' => ['required', 'unique:companies', 'max:255'],
+            ];
         }
 
         $validatedData = $request->validate($rules);
 
-        Company::where('id', $company->id)->update($validatedData);
+        Company::whereId($company->id)->update($validatedData);
+        return redirect('company');
 
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Company::destroy($id);
         return redirect('company');
     }
 }

@@ -23,7 +23,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ url('company/add') }}" method="post">
+                    <form action="{{ route('company.store') }}" method="post">
                         <div class="modal-body">
                             <div class="justify-content-center">
                                 <div class="row m-3">
@@ -127,14 +127,15 @@
                         </button>
                     </a>
                 </div>
-                <form action="{{ url('company/'.$item['id']) }}" method="post">
+                <form action="{{ route('company.update', $company->id ) }}" method="post">
                     @method('put')
                     @csrf
                     <div class="modal-body">
                         <div class="justify-content-center">
                             <div class="row m-3">
                                 <label for="company_name" class="form-label">Company Name</label>
-                                <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="Company Name" value="{{ old('company_name', $company->company_name) }}" required>
+                                <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" 
+                                    placeholder="Company Name" value="{{ old('company_name', $company->company_name) }}" required>
                                 @error('company_name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -143,7 +144,8 @@
                             </div>
                             <div class="row m-3">
                                 <label for="alias" class="form-label">Alias</label>
-                                <input type="text" name="alias" id="alias" class="form-control @error('alias') is-invalid @enderror" placeholder="Alias" value="{{ old('alias', $company->alias) }}" required>
+                                <input type="text" name="alias" id="alias" class="form-control @error('alias') is-invalid @enderror" 
+                                    placeholder="Alias" value="{{ old('alias', $company->alias) }}" required>
                                 @error('alias')
                                 <div class="invalid-feedback">
                                     {{ $message }}
