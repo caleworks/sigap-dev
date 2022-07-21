@@ -28,7 +28,8 @@
                             <div class="justify-content-center">
                                 <div class="row m-3">
                                     <label for="category" class="form-label">Category Name</label>
-                                    <input type="text" name="category" id="category" class="form-control @error('category') is-invalid @enderror" placeholder="Category Name" value="{{ old('category') }}" required>
+                                    <input type="text" name="category" id="category" class="form-control @error('category') is-invalid @enderror" 
+                                        placeholder="Category Name" value="{{ old('category') }}" required autofocus>
                                     @error('category')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -135,7 +136,7 @@
                             <div class="row m-3">
                                 <label for="category" class="form-label">Category Name</label>
                                 <input type="text" name="category" id="category" class="form-control @error('category') is-invalid @enderror" 
-                                    placeholder="Category Name" value="{{ old('category', $category->category) }}" required>
+                                    placeholder="Category Name" value="{{ old('category', $category->category) }}" required autofocus>
                                 @error('company_name')
                                 <div class="invalid-feedback">
                                     {{ $message }}

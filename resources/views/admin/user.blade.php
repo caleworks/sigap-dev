@@ -28,7 +28,8 @@
                             <div class="justify-content-center">
                                 <div class="row m-3">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Full Name" value="{{ old('name') }}" required>
+                                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" 
+                                        placeholder="Full Name" value="{{ old('name') }}" required autofocus>
                                     @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}

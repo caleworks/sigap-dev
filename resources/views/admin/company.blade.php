@@ -28,7 +28,8 @@
                             <div class="justify-content-center">
                                 <div class="row m-3">
                                     <label for="company_name" class="form-label">Company Name</label>
-                                    <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" placeholder="Company Name" value="{{ old('company_name') }}" required>
+                                    <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" 
+                                        placeholder="Company Name" value="{{ old('company_name') }}" required autofocus>
                                     @error('company_name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -135,7 +136,7 @@
                             <div class="row m-3">
                                 <label for="company_name" class="form-label">Company Name</label>
                                 <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" 
-                                    placeholder="Company Name" value="{{ old('company_name', $company->company_name) }}" required>
+                                    placeholder="Company Name" value="{{ old('company_name', $company->company_name) }}" required autofocus>
                                 @error('company_name')
                                 <div class="invalid-feedback">
                                     {{ $message }}

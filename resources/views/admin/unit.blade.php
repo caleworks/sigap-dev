@@ -29,7 +29,7 @@
                                 <div class="row m-3">
                                     <label for="unit" class="form-label">Unit</label>
                                     <input type="text" name="unit" id="unit" class="form-control @error('unit') is-invalid @enderror" 
-                                        placeholder="Unit" value="{{ old('unit') }}" required>
+                                        placeholder="Unit" value="{{ old('unit') }}" required autofocus>
                                     @error('unit')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -124,7 +124,7 @@
                             <div class="row m-3">
                                 <label for="unit" class="form-label">Unit</label>
                                 <input type="text" name="unit" id="unit" class="form-control @error('unit') is-invalid @enderror" 
-                                    placeholder="Unit" value="{{ old('unit', $unit->unit) }}" required>
+                                    placeholder="Unit" value="{{ old('unit', $unit->unit) }}" required autofocus>
                                 @error('unit')
                                 <div class="invalid-feedback">
                                     {{ $message }}
