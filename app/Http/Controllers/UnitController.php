@@ -18,7 +18,7 @@ class UnitController extends Controller
             'title' => 'Unit',
             'active' => 'unit',
             'table' => 'active',
-            'companies' => Unit::all(),
+            'units' => Unit::all(),
         ]);
     }
 
@@ -40,7 +40,12 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'unit' => ['required', 'unique:units','max:255'],
+        ]);
+
+        Unit::create($validatedData);
+        return redirect('unit');
     }
 
     /**
@@ -62,7 +67,14 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.unit', [
+            'title' => 'Unit',
+            'active' => 'unit',
+            'table' => 'active',
+            'unit' => Unit::findOrFail($id),
+            'units' => Unit::all(),
+            'edit' => true,
+        ]);
     }
 
     /**
@@ -72,9 +84,22 @@ class UnitController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Unit $unit)
     {
-        //
+        if ($request->unit != $unit->unit) {
+            $rules = [
+                'unit' => ['required', 'unique:units', 'max:255'],
+            ];
+        } else {
+            $rules = [
+                'unit' => ['required', 'max:255'],
+            ];
+        }
+
+        $validatedData = $request->validate($rules);
+
+        Unit::whereId($unit->id)->update($validatedData);
+        return redirect('unit');
     }
 
     /**
@@ -85,6 +110,7 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Unit::destroy($id);
+        return redirect('unit');
     }
 }
