@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Models\CompanyAccess;
+use App\Models\User;
 
 class CompanyController extends Controller
 {
@@ -138,11 +140,35 @@ class CompanyController extends Controller
             'title' => 'Company',
             'active' => 'company',
             'table' => 'active',
+            'withAccess' => CompanyAccess::where('company_id',$id)->get(),
             'company' => Company::findOrFail($id),
-            'companies' => Company::all(),
-            'edit' => true,
         ]);
 
-        //return Company::findOrFail($id);
+        //return CompanyAccess::where('company_id', $id)->get();
     }
+
+    public function grantAccess(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'email' => ['required', 'email:dns', 'max:255', 'exists:users'],
+        ]);
+
+        $getIdUser = User::whereEmail($validatedData['email'])->get();
+
+        $store = [
+            'user_id' => $getIdUser[0]['id'],
+            'company_id' => $id,
+        ];
+
+        CompanyAccess::create($store);
+        return redirect('company/'.$id.'/access');
+
+    }
+
+    public function destroyAccess($id)
+    {
+        //CompanyAccess::destroy($id);
+        return redirect('company');
+    }
+
 }

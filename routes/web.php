@@ -29,14 +29,20 @@ Route::post('login', [App\Http\Controllers\AuthController::class, 'authenticate'
 Route::post('logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
 // dashboard page
-Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('dashboard')
+    ->middleware('auth');
 
 // company admin page
 Route::resource('company', CompanyController::class)->middleware('auth');
 Route::get('company/{company}/access', [App\Http\Controllers\CompanyController::class, 'userAccess'])
     ->name('company.access')
     ->middleware('auth');
-
+Route::post('company/{company}/access', [App\Http\Controllers\CompanyController::class, 'grantAccess'])
+    ->name('company.grantAccess')
+    ->middleware('auth');
+Route::delete('company/{company}/access/delete', [App\Http\Controllers\CompanyController::class, 'destroyAccess'])
+    ->middleware('auth');
 
 // category admin page
 Route::resource('category', CategoryController::class)->middleware('auth');

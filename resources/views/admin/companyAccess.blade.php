@@ -9,7 +9,7 @@
             <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
             <!-- Button trigger modal -->
             <button type="button" class="d-none d-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addModal">
-                <i class="fas fa-plus fa-sm text-white-50"></i> Add New {{ $title }}
+                <i class="fas fa-plus fa-sm text-white-50"></i> Grant Access to User
             </button>
         </div>
         
@@ -18,18 +18,18 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content text-gray-900">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addModal">Add New Company</h5>
+                        <h5 class="modal-title" id="addModal">Grant Access to User</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('company.store') }}" method="post">
+                    <form action="{{ route('company.grantAccess', $company->id) }}" method="post">
                         <div class="modal-body">
                             <div class="justify-content-center">
                                 <div class="row m-3">
                                     <label for="company_name" class="form-label">Company Name</label>
                                     <input type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror" 
-                                        placeholder="Company Name" value="{{ old('company_name') }}" required autofocus>
+                                        placeholder="Company Name" value="{{ $company['company_name'] }}" disabled>
                                     @error('company_name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -37,9 +37,9 @@
                                     @enderror
                                 </div>
                                 <div class="row m-3">
-                                    <label for="alias" class="form-label">Alias</label>
-                                    <input type="text" name="alias" id="alias" class="form-control @error('alias') is-invalid @enderror" placeholder="Alias" value="{{ old('alias') }}" required>
-                                    @error('alias')
+                                    <label for="email" class="form-label">Grant Access to</label>
+                                    <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="User's Email" value="{{ old('email') }}" required>
+                                    @error('email')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -60,7 +60,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ $title }} Data</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Users with Access to {{ $company['company_name'] }}</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -68,40 +68,31 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Alias</th>
-                                <th>Created date</th>
-                                <th>Last update</th>
+                                <th>Email</th>
+                                <th>Access Granted</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th>Name</th>
-                                <th>Alias</th>
-                                <th>Created date</th>
-                                <th>Last update</th>
+                                <th>Email</th>
+                                <th>Access Granted</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($companies as $item)
+                            @foreach ($withAccess as $item)
                             <tr>
-                                <td>{{ $item['company_name'] }}</td>
-                                <td>{{ $item['alias'] }}</td>
+                                <td>{{ $item['user_id'] }}</td>
+                                <td>{{ $item['user_id'] }}</td>
                                 <td>{{ $item['created_at'] }}</td>
-                                <td>{{ $item['updated_at'] }}</td>
                                 <td>
-                                    <a href="{{ url('company/'.$item['id'].'/access') }}" class="btn btn-primary btn-circle btn-sm" title="View User with Access to {{ $item['company_name'] }}">
-                                        <i class="fas fa-user"></i>
-                                    </a>
-                                    <a href="{{ url('company/'.$item['id'].'/edit') }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
-                                        <i class="fas fa-pen"></i>
-                                    </a>
-                                    <form action="{{ url('company/'.$item['id']) }}" class="d-inline" method="POST">
+                                    <form action="{{ url('company/'.$item['id'].'/access/delete') }}" class="d-inline" method="POST">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="return confirm('Are you sure to delete {{ $item['company_name'] }}?')">
-                                            <i class="fas fa-trash"></i>
+                                        <button class="btn btn-danger btn-circle btn-sm" title="Revoke Access" onclick="return confirm('Are you sure?')">
+                                            <i class="fas fa-ban"></i>
                                         </button>
                                     </form>
                                 </td>
