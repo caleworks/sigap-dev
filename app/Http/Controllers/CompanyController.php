@@ -29,7 +29,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return redirect('company');
     }
 
     /**
@@ -57,7 +57,7 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('company');
     }
 
     /**
@@ -130,5 +130,19 @@ class CompanyController extends Controller
     {
         Company::destroy($id);
         return redirect('company');
+    }
+
+    public function userAccess($id)
+    {
+        return view('admin.companyAccess', [
+            'title' => 'Company',
+            'active' => 'company',
+            'table' => 'active',
+            'company' => Company::findOrFail($id),
+            'companies' => Company::all(),
+            'edit' => true,
+        ]);
+
+        //return Company::findOrFail($id);
     }
 }

@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return redirect('user');
     }
 
     /**
@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('user');
     }
 
     /**

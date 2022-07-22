@@ -33,6 +33,10 @@ Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])->
 
 // company admin page
 Route::resource('company', CompanyController::class)->middleware('auth');
+Route::get('company/{company}/access', [App\Http\Controllers\CompanyController::class, 'userAccess'])
+    ->name('company.access')
+    ->middleware('auth');
+
 
 // category admin page
 Route::resource('category', CategoryController::class)->middleware('auth');

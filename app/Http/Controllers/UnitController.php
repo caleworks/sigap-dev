@@ -29,7 +29,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        return redirect('unit');
     }
 
     /**
@@ -56,7 +56,7 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect('unit');
     }
 
     /**

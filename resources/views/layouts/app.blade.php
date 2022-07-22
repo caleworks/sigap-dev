@@ -338,7 +338,7 @@
     <script src="{{ url('assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    @if ($errors->any())
+    @if ($errors->any() && !isset($edit))
     <script>
         $('#addModal').modal({
             show: true
