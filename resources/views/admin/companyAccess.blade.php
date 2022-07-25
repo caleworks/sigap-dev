@@ -6,7 +6,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ $company['company_name'] }}</h1>
             <!-- Button trigger modal -->
             <button type="button" class="d-none d-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addModal">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Grant Access to User
@@ -84,11 +84,11 @@
                         <tbody>
                             @foreach ($withAccess as $item)
                             <tr>
-                                <td>{{ $item['user_id'] }}</td>
-                                <td>{{ $item['user_id'] }}</td>
-                                <td>{{ $item['created_at'] }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->created_at }}</td>
                                 <td>
-                                    <form action="{{ url('company/'.$item['id'].'/access/delete') }}" class="d-inline" method="POST">
+                                    <form action="{{ url('company/'.$item->id.'/access/delete') }}" class="d-inline" method="POST">
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-danger btn-circle btn-sm" title="Revoke Access" onclick="return confirm('Are you sure?')">

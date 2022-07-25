@@ -48,7 +48,7 @@ class CompanyController extends Controller
         ]);
 
         Company::create($validatedData);
-        return redirect('company');
+        return back();
     }
 
     /**
@@ -131,7 +131,7 @@ class CompanyController extends Controller
     public function destroy($id)
     {
         Company::destroy($id);
-        return redirect('company');
+        return back();
     }
 
     public function userAccess($id)
@@ -140,11 +140,11 @@ class CompanyController extends Controller
             'title' => 'Company',
             'active' => 'company',
             'table' => 'active',
-            'withAccess' => CompanyAccess::where('company_id',$id)->get(),
+            'withAccess' => CompanyAccess::grantedUsers($id)->get(),
             'company' => Company::findOrFail($id),
         ]);
 
-        //return CompanyAccess::where('company_id', $id)->get();
+        //return CompanyAccess::grantedUsers($id);
     }
 
     public function grantAccess(Request $request, $id)
@@ -161,14 +161,14 @@ class CompanyController extends Controller
         ];
 
         CompanyAccess::create($store);
-        return redirect('company/'.$id.'/access');
+        return back();
 
     }
 
     public function destroyAccess($id)
     {
-        //CompanyAccess::destroy($id);
-        return redirect('company');
+        CompanyAccess::destroy($id);
+        return back();
     }
 
 }

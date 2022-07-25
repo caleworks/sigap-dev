@@ -45,7 +45,7 @@ class UnitController extends Controller
         ]);
 
         Unit::create($validatedData);
-        return redirect('unit');
+        return back();
     }
 
     /**
@@ -111,6 +111,6 @@ class UnitController extends Controller
     public function destroy($id)
     {
         Unit::destroy($id);
-        return redirect('unit');
+        return back();
     }
 }

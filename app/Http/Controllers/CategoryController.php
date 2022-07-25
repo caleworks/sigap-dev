@@ -46,7 +46,7 @@ class CategoryController extends Controller
         ]);
 
         Category::create($validatedData);
-        return redirect('category');
+        return back();
     }
 
     /**
@@ -115,6 +115,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::destroy($id);
-        return redirect('category');
+        return back();
     }
 }

@@ -56,7 +56,7 @@ class UserController extends Controller
 
         //return $request->all();
 
-        return redirect('user');
+        return back();
     }
 
     /**
