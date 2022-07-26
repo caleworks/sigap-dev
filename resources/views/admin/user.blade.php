@@ -138,7 +138,7 @@
                                     <form action="{{ url('user/'.$item['id'].'/disable') }}" method="post" class="d-inline">
                                         @method('patch')
                                         @csrf
-                                        <button type="submit" class="btn btn-danger btn-circle btn-sm" title="Disable">
+                                        <button type="submit" class="btn btn-danger btn-circle btn-sm" title="Disable" onclick="return confirm('Are you sure to disable {{ $item['name'] }}?')">
                                             <i class="fas fa-ban"></i>
                                         </button>
                                     </form>
@@ -146,7 +146,7 @@
                                     <form action="{{ url('user/'.$item['id'].'/enable') }}" method="post" class="d-inline">
                                         @method('patch')
                                         @csrf
-                                        <button type="submit" class="btn btn-success btn-circle btn-sm" title="Enable">
+                                        <button type="submit" class="btn btn-success btn-circle btn-sm" title="Enable" onclick="return confirm('Are you sure to enable {{ $item['name'] }}?')">
                                             <i class="fas fa-check"></i>
                                         </button>
                                     </form>

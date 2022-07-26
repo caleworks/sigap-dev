@@ -32,8 +32,8 @@ class AuthController extends Controller
 
         $userData = User::where('email', $credentials['email'])->first(); 
 
-        if ($userData->is_active == 1) {
-            if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials)) {
+            if ($userData->is_active == 1) {
                 $request->session()->regenerate();
      
                 return redirect()->intended('dashboard');
