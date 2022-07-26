@@ -34,23 +34,26 @@ Route::get('dashboard', [HomeController::class, 'index'])
     ->middleware('auth');
 
 // company admin page
-Route::resource('company', CompanyController::class)->middleware('auth');
+Route::resource('company', CompanyController::class)->middleware('auth')->middleware('auth.admin');
 Route::get('company/{company}/access', [CompanyController::class, 'userAccess'])
     ->name('company.access')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware('auth.admin');
 Route::post('company/{company}/access', [CompanyController::class, 'grantAccess'])
     ->name('company.grantAccess')
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware('auth.admin');
 Route::delete('company/{company}/access/delete', [CompanyController::class, 'destroyAccess'])
-    ->middleware('auth');
+    ->middleware('auth')
+    ->middleware('auth.admin');
 
 // category admin page
-Route::resource('category', CategoryController::class)->middleware('auth');
+Route::resource('category', CategoryController::class)->middleware('auth')->middleware('auth.admin');
 
 // unit admin page
-Route::resource('unit', UnitController::class)->middleware('auth');
+Route::resource('unit', UnitController::class)->middleware('auth')->middleware('auth.admin');
 
 // user admin page
-Route::resource('user', UserController::class)->middleware('auth');
-Route::patch('user/{user}/disable', [UserController::class, 'disableUser'])->middleware('auth');
-Route::patch('user/{user}/enable', [UserController::class, 'enableUser'])->middleware('auth');
+Route::resource('user', UserController::class)->middleware('auth')->middleware('auth.admin');
+Route::patch('user/{user}/disable', [UserController::class, 'disableUser'])->middleware('auth')->middleware('auth.admin');
+Route::patch('user/{user}/enable', [UserController::class, 'enableUser'])->middleware('auth')->middleware('auth.admin');
