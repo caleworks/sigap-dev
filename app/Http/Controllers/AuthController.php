@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -28,15 +29,19 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
- 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
- 
-            return redirect()->intended('dashboard');
+
+        $userData = User::where('email', $credentials['email'])->first(); 
+
+        if ($userData->is_active == 1) {
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+     
+                return redirect()->intended('dashboard');
+            }
         }
  
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'The provided credentials do not match our records or user is disabled.',
         ]);
     }
 
