@@ -78,7 +78,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.user', [
+            'title' => 'User',
+            'active' => 'user',
+            'table' => 'active',
+            'users' => User::all(),
+            'user' => User::findOrFail($id),
+            'edit' => true,
+        ]);
     }
 
     /**
@@ -88,9 +95,24 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        if($request->password != NULL) {
+            $validatedData = $request->validate([
+                'password' => ['required', 'confirmed', Password::min(8)],
+                'role' => ['required']
+            ]);
+
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        } else {
+            $validatedData = $request->validate([
+                'role' => ['required']
+            ]);
+        }
+
+        User::whereId($user->id)->update($validatedData);
+        return redirect('user');
+
     }
 
     /**
@@ -102,5 +124,25 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function disableUser($id)
+    {
+        $validatedData = [
+            'is_active' => 0,
+        ];
+
+        User::whereId($id)->update($validatedData);
+        return back();
+    }
+
+    public function enableUser($id)
+    {
+        $validatedData = [
+            'is_active' => 1,
+        ];
+        
+        User::whereId($id)->update($validatedData);
+        return back();
     }
 }

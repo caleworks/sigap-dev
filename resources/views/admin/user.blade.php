@@ -131,17 +131,25 @@
                                 </td>
                                 <td>{{ $item['updated_at'] }}</td>
                                 <td>
-                                    <a href="{{ url('user/reset/'.$item['id']) }}" class="btn btn-warning btn-circle btn-sm" title="Reset Password">
-                                        <i class="fas fa-key"></i>
+                                    <a href="{{ url('user/'.$item['id'].'/edit') }}" class="btn btn-warning btn-circle btn-sm" title="Reset Password">
+                                        <i class="fas fa-pen"></i>
                                     </a>
-                                    @if ( $item['is_active'] == 1 )    
-                                    <a href="{{ url('user/disable/'.$item['id']) }}" class="btn btn-danger btn-circle btn-sm" title="Disable">
-                                        <i class="fas fa-ban"></i>
-                                    </a>
+                                    @if ( $item['is_active'] == 1 )
+                                    <form action="{{ url('user/'.$item['id'].'/disable') }}" method="post" class="d-inline">
+                                        @method('patch')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-circle btn-sm" title="Disable">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </form>
                                     @elseif ( $item['is_active'] == 0 ) 
-                                    <a href="{{ url('user/enable/'.$item['id']) }}" class="btn btn-success btn-circle btn-sm" title="Enable">
-                                        <i class="fas fa-check"></i>
-                                    </a>
+                                    <form action="{{ url('user/'.$item['id'].'/enable') }}" method="post" class="d-inline">
+                                        @method('patch')
+                                        @csrf
+                                        <button type="submit" class="btn btn-success btn-circle btn-sm" title="Enable">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </form>
                                     @endif
                                 </td>
                             </tr>
@@ -154,5 +162,85 @@
 
     </div>
     <!-- /.container-fluid -->
+
+    {{-- Edit Page --}}
+    @isset($edit)
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="editModal" aria-hidden="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-gray-900">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModal">Edit User</h5>
+                    <a href="{{ url('user') }}">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </a>
+                </div>
+                <form action="{{ route('user.update', $user->id ) }}" method="post">
+                    @method('patch')
+                    @csrf
+                    <div class="modal-body">
+                        <div class="justify-content-center">
+                            <div class="row m-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" 
+                                    placeholder="Full Name" value="{{ $user->name }}" disabled>
+                                @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="row m-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ $user->email }}" disabled>
+                                @error('email')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="row m-3">
+                                <label for="password" class="form-label">New Password</label>
+                                <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Leave it blank if you don't want to reset the password" value="{{ old('password') }}">
+                                @error('password')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="row m-3">
+                                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Retype Entered Password" value="{{ old('password_confirmation') }}">
+                                @error('password_confirmation')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="row m-3">
+                                <label for="role" class="form-label">Role</label>
+                                <select name="role" id="role" class="form-control">
+                                    <option value="0">User</option>
+                                    <option value="1" @if ( $user->role == 1 ) selected @endif>Administrator</option>
+                                </select>
+                            </div>
+                            @csrf
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" href="{{ url('user') }}">Close</a>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.Edit Modal -->
+
+    @endisset
+    {{-- /.Edit Page --}}
 
 @endsection

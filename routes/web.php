@@ -21,27 +21,27 @@ use App\Http\Controllers\UnitController;
 */
 
 // public search page
-Route::get('/', [App\Http\Controllers\SearchController::class, 'index'])->name('home');
+Route::get('/', [SearchController::class, 'index'])->name('home');
 
 // login
-Route::get('login', [App\Http\Controllers\AuthController::class, 'index'])->name('login')->middleware('guest');
-Route::post('login', [App\Http\Controllers\AuthController::class, 'authenticate'])->middleware('guest');
-Route::post('logout', [App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+Route::get('login', [AuthController::class, 'index'])->name('login')->middleware('guest');
+Route::post('login', [AuthController::class, 'authenticate'])->middleware('guest');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 // dashboard page
-Route::get('dashboard', [App\Http\Controllers\HomeController::class, 'index'])
+Route::get('dashboard', [HomeController::class, 'index'])
     ->name('dashboard')
     ->middleware('auth');
 
 // company admin page
 Route::resource('company', CompanyController::class)->middleware('auth');
-Route::get('company/{company}/access', [App\Http\Controllers\CompanyController::class, 'userAccess'])
+Route::get('company/{company}/access', [CompanyController::class, 'userAccess'])
     ->name('company.access')
     ->middleware('auth');
-Route::post('company/{company}/access', [App\Http\Controllers\CompanyController::class, 'grantAccess'])
+Route::post('company/{company}/access', [CompanyController::class, 'grantAccess'])
     ->name('company.grantAccess')
     ->middleware('auth');
-Route::delete('company/{company}/access/delete', [App\Http\Controllers\CompanyController::class, 'destroyAccess'])
+Route::delete('company/{company}/access/delete', [CompanyController::class, 'destroyAccess'])
     ->middleware('auth');
 
 // category admin page
@@ -52,3 +52,5 @@ Route::resource('unit', UnitController::class)->middleware('auth');
 
 // user admin page
 Route::resource('user', UserController::class)->middleware('auth');
+Route::patch('user/{user}/disable', [UserController::class, 'disableUser'])->middleware('auth');
+Route::patch('user/{user}/enable', [UserController::class, 'enableUser'])->middleware('auth');
