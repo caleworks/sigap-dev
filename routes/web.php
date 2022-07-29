@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\AssetController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,10 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('dashboard', [HomeController::class, 'index'])
     ->name('dashboard')
     ->middleware('auth');
+
+// assets admin page
+Route::resource('asset', AssetController::class)->middleware('auth');
+Route::resource('asset/product', ProductController::class)->middleware('auth');
 
 // company admin page
 Route::resource('company', CompanyController::class)->middleware('auth')->middleware('auth.admin');

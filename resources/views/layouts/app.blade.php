@@ -47,7 +47,6 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('dashboard') }}">
                 <div class="sidebar-brand-icon">
-                    {{-- <i class="fas fa-laugh-wink"></i> --}}
                     <img src="{{ url('assets/img/KODEL-Only_2021.png') }}" height="30">
                 </div>
                 <div class="sidebar-brand-text mx-3">Kodel Group <sup>Inventory</sup></div>
@@ -91,11 +90,19 @@
                     <span>Add/Edit MRO Item</span></a>
             </li>
 
-            <!-- Nav Item - Asset Item -->
+            <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{ ($active === 'asset' ) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('asset') }}">
-                    <i class="fas fa-fw fa-box-open"></i>
-                    <span>Asset Item</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-laptop"></i>
+                    <span>Assets</span>
+                </a>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ url('asset') }}">Assets</a>
+                        <a class="collapse-item" href="{{ url('asset/product') }}">Product Specs</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -254,17 +261,6 @@
                                         $290.29 has been deposited into your account!
                                     </div>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
@@ -310,7 +306,9 @@
                 </nav>
                 <!-- End of Topbar -->
 
+                <!-- Ok, this is the Content -->
                 @yield('content')
+                <!-- End of Content -->
 
             </div>
             <!-- End of Main Content -->

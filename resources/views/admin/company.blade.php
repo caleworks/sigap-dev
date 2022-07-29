@@ -91,8 +91,8 @@
                                 <td>{{ $item['created_at'] }}</td>
                                 <td>{{ $item['updated_at'] }}</td>
                                 <td>
-                                    <a href="{{ url('company/'.$item['id'].'/access') }}" class="btn btn-primary btn-circle btn-sm" title="View User with Access to {{ $item['company_name'] }}">
-                                        <i class="fas fa-user"></i>
+                                    <a href="{{ url('company/'.$item['id'].'/access') }}" class="btn btn-info btn-circle btn-sm" title="View User with Access to {{ $item['company_name'] }}">
+                                        <i class="fas fa-eye"></i>
                                     </a>
                                     <a href="{{ url('company/'.$item['id'].'/edit') }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
                                         <i class="fas fa-pen"></i>

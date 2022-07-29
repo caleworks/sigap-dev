@@ -16,8 +16,12 @@ class AuthorizeAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->role != 1) {
-            abort(403);
+        if (isset(auth()->user()->role)) {
+            if(auth()->user()->role != 1) {
+                abort(403);
+            }
+        } else {
+            return redirect('login');
         }
 
         return $next($request);
