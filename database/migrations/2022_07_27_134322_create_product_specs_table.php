@@ -23,6 +23,7 @@ class CreateProductSpecsTable extends Migration
             $table->text('specification')->nullable();
             $table->string('notes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

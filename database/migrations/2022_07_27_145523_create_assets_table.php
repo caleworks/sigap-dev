@@ -20,6 +20,7 @@ class CreateAssetsTable extends Migration
             $table->foreignId('user_id_deliver')->nullable();
             $table->date('date_purchase');
             $table->date('date_deliver')->nullable();
+            $table->string('product_code');
             $table->string('employee_user')->nullable();
             $table->string('location');
             $table->string('notes')->nullable();
@@ -28,6 +29,7 @@ class CreateAssetsTable extends Migration
             $table->string('qr_code')->nullable();
             $table->string('scan_bast')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

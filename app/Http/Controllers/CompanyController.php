@@ -140,11 +140,11 @@ class CompanyController extends Controller
             'title' => 'Company',
             'active' => 'company',
             'table' => 'active',
-            'withAccess' => CompanyAccess::grantedUsers($id)->get(),
+            'withAccess' => CompanyAccess::with(['user'])->where('company_id', $id)->get(),
             'company' => Company::findOrFail($id),
         ]);
 
-        //return CompanyAccess::grantedUsers($id);
+        //return CompanyAccess::with(['user'])->where('company_id', $id)->get();
     }
 
     public function grantAccess(Request $request, $id)
@@ -163,6 +163,17 @@ class CompanyController extends Controller
         CompanyAccess::create($store);
         return back();
 
+    }
+
+    public function selectAccess($company) {
+
+        $item['active'] = 0;
+        CompanyAccess::where('user_id', Auth::user()->id)->update($item);
+
+        $item['active'] = 1;
+        CompanyAccess::where('user_id', Auth::user()->id)->where('company_id', $company)->update($item);
+
+        return back();
     }
 
     public function destroyAccess($id)

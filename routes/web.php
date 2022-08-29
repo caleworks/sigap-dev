@@ -30,36 +30,42 @@ Route::get('login', [AuthController::class, 'index'])->name('login')->middleware
 Route::post('login', [AuthController::class, 'authenticate'])->middleware('guest');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-// dashboard page
-Route::get('dashboard', [HomeController::class, 'index'])
-    ->name('dashboard')
-    ->middleware('auth');
+Route::middleware('auth')->group(function() {
+    
+    // dashboard page
+    Route::get('dashboard', [HomeController::class, 'index'])
+        ->name('dashboard');
+    
+    // assets admin page
+    Route::name('asset.')->prefix('asset')->group(function() {
+        Route::resource('/', AssetController::class);
+        Route::resource('product', ProductController::class);
+    
+    });
+    
+    Route::middleware('auth.admin')->group(function() {
+        // company admin page
+        Route::resource('company', CompanyController::class)->middleware('auth')->middleware('auth.admin');
+        Route::get('company/{company}/access', [CompanyController::class, 'userAccess'])
+            ->name('company.access');
+        Route::post('company/{company}/access', [CompanyController::class, 'grantAccess'])
+            ->name('company.grantAccess');
+        Route::patch('company/select', [CompanyController::class, 'selectAccess'])
+            ->name('company.selectAccess');
+        Route::delete('company/{company}/access/delete', [CompanyController::class, 'destroyAccess']);
+        
+        // category admin page
+        Route::resource('category', CategoryController::class);
+        
+        // unit admin page
+        Route::resource('unit', UnitController::class);
+        
+        // user admin page
+        Route::resource('user', UserController::class);
+        Route::patch('user/{user}/disable', [UserController::class, 'disableUser']);
+        Route::patch('user/{user}/enable', [UserController::class, 'enableUser']);
+    });
 
-// assets admin page
-Route::resource('asset', AssetController::class)->middleware('auth');
-Route::resource('asset/product', ProductController::class)->middleware('auth');
+}); 
 
-// company admin page
-Route::resource('company', CompanyController::class)->middleware('auth')->middleware('auth.admin');
-Route::get('company/{company}/access', [CompanyController::class, 'userAccess'])
-    ->name('company.access')
-    ->middleware('auth')
-    ->middleware('auth.admin');
-Route::post('company/{company}/access', [CompanyController::class, 'grantAccess'])
-    ->name('company.grantAccess')
-    ->middleware('auth')
-    ->middleware('auth.admin');
-Route::delete('company/{company}/access/delete', [CompanyController::class, 'destroyAccess'])
-    ->middleware('auth')
-    ->middleware('auth.admin');
 
-// category admin page
-Route::resource('category', CategoryController::class)->middleware('auth')->middleware('auth.admin');
-
-// unit admin page
-Route::resource('unit', UnitController::class)->middleware('auth')->middleware('auth.admin');
-
-// user admin page
-Route::resource('user', UserController::class)->middleware('auth')->middleware('auth.admin');
-Route::patch('user/{user}/disable', [UserController::class, 'disableUser'])->middleware('auth')->middleware('auth.admin');
-Route::patch('user/{user}/enable', [UserController::class, 'enableUser'])->middleware('auth')->middleware('auth.admin');

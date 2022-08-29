@@ -6,7 +6,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"><a class="text-decoration-none" href="{{ url('company') }}">Company</a> <i class="fas fa-angle-right"></i> {{ $company['company_name'] }}</h1>
+            <h1 class="h3 mb-0 text-gray-800"><a class="text-decoration-none text-secondary" href="{{ url('company') }}">Company</a> <i class="fas fa-angle-right"></i> {{ $company['company_name'] }}</h1>
             <!-- Button trigger modal -->
             <button type="button" class="d-none d-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addModal">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Grant Access to User
@@ -84,8 +84,8 @@
                         <tbody>
                             @foreach ($withAccess as $item)
                             <tr>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->user->email }}</td>
                                 <td>{{ $item->created_at }}</td>
                                 <td>
                                     <form action="{{ url('company/'.$item->id.'/access/delete') }}" class="d-inline" method="POST">

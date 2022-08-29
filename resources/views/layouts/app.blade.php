@@ -84,7 +84,7 @@
             </li>
 
             <!-- Nav Item - Asset Item -->
-            <li class="nav-item {{ ($active === 'asset' ) ? 'active' : '' }}">
+            <li class="nav-item {{ ($active === 'addmro' ) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('asset') }}">
                     <i class="fas fa-fw fa-box-open"></i>
                     <span>Add/Edit MRO Item</span></a>
@@ -185,14 +185,20 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form method="get" action="{{ url('search') }}"
+                    <form method="POST" action="{{ route('company.selectAccess') }}"
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for stock..."
-                                aria-label="Search" aria-describedby="basic-addon2">
+                            <label for="company_id" class="form-label mr-2">Company</label>
+                            <select id="company_id" name="company_id" class="form-control bg-light border-0 small">
+                                {{-- @foreach($nav_companies as $nav_company)
+                                    <option value="{{ $nav_company['id'] }}" @if($nav_company['id'] == old('company_id')) selected @endif>
+                                        {{ $nav_company['company_name'] }}
+                                    </option>
+                                @endforeach --}}
+                            </select>
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-search fa-sm"></i>
+                                    <i class="fas fa-arrow-right fa-sm"></i>
                                 </button>
                             </div>
                         </div>

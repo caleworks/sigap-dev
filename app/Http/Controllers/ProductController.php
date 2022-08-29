@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Unit;
+use App\Models\Asset;
+use App\Models\Category;
 use App\Models\ProductSpec;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -18,7 +21,9 @@ class ProductController extends Controller
             'title' => 'Product Specs',
             'active' => 'asset',
             'table' => 'active',
-            //'users' => User::all(),
+            'productSpec' => ProductSpec::with(['productCategories'])->get(),
+            'categories' => Category::all(),
+            'units' => Unit::all(),
         ]);
     }
 
@@ -40,9 +45,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $rules['product_code'] = 'required|unique:product_specs|max:255';
+        $rules['name'] = 'required|unique:product_specs|max:255';
+        $rules['category_id'] = 'required|numeric';
+        $rules['unit_id'] = 'required|numeric';
+        $rules['company_id'] = 'required|numeric';
+        $rules['specification'] = 'string';
+        $rules['notes'] = 'max:255';
+        
+        $validatedData = $request->validate($rules);
 
+        ProductSpec::create($validatedData);
+
+        return back();
+    }
+    
     /**
      * Display the specified resource.
      *
@@ -51,7 +68,17 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.productSpecsShow', [
+            'title' => 'Product Specs',
+            'active' => 'asset',
+            'table' => 'inactive',
+            'productDetail' => ProductSpec::with(['productCategories'])
+                ->with(['productUnits'])
+                ->with(['productCompanies'])
+                ->where('product_code', $id)
+                ->firstOrFail(),
+            'assets' => Asset::where('product_code', $id)->latest()->limit(10)->get(),
+        ]);
     }
 
     /**
@@ -62,7 +89,15 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.productSpecsShow', [
+            'title' => 'Product Specs',
+            'active' => 'asset',
+            'table' => 'inactive',
+            'edit' => true,
+            'productDetail' => ProductSpec::where('product_code', $id)->firstOrFail(),
+            'categories' => Category::all(),
+            'units' => Unit::all(),
+        ]);
     }
 
     /**
@@ -73,8 +108,31 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        $ProductSpec = ProductSpec::whereId($id)->first();
+
+        if($request->product_code != $ProductSpec->product_code) {
+            $rules['product_code'] = 'required|unique:product_specs|max:255';
+        } else {
+            $rules['product_code'] = 'required|max:255';
+        }
+
+        if($request->name != $ProductSpec->name) {
+            $rules['name'] = 'required|unique:product_specs|max:255';
+        } else {
+            $rules['name'] = 'required|max:255';
+        }
+
+        $rules['category_id'] = 'required|numeric';
+        $rules['unit_id'] = 'required|numeric';
+        $rules['specification'] = '';
+        $rules['notes'] = 'max:255';
+        
+        $validatedData = $request->validate($rules);
+
+        $ProductSpec->update($validatedData);
+
+        return redirect()->route('asset.product.show', $ProductSpec->product_code);
     }
 
     /**
@@ -85,6 +143,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ProductSpec::destroy($id);
+        return redirect('asset.product.index');
     }
 }
