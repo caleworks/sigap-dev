@@ -135,7 +135,7 @@
                             <tr>
                                 <td>{{ $item['product_code'] }}</td>
                                 <td>{{ $item['name'] }}</td>
-                                <td>{{ $item['specification'] }}</td>
+                                <td>{!! Str::limit($item['specification'], 25) !!}</td>
                                 <td>{{ $item->productCategories()->first()->category }}</td>
                                 <td>{{ $item['notes'] }}</td>
                                 <td>

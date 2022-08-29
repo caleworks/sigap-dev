@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.productSpecs', [
+        return view('pages.asset.productSpecs', [
             'title' => 'Product Specs',
             'active' => 'asset',
             'table' => 'active',
@@ -67,7 +67,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return view('admin.productSpecsShow', [
+        return view('pages.asset.productSpecsShow', [
             'title' => 'Product Specs',
             'active' => 'asset',
             'table' => 'inactive',
@@ -87,7 +87,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.productSpecsShow', [
+        return view('pages.asset.productSpecsShow', [
             'title' => 'Product Specs',
             'active' => 'asset',
             'table' => 'inactive',

@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category', [
+        return view('pages.category.index', [
             'title' => 'Category',
             'active' => 'category',
             'table' => 'active',
@@ -68,7 +68,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.category', [
+        return view('pages.category.index', [
             'title' => 'Category',
             'active' => 'category',
             'table' => 'active',

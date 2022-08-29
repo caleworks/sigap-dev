@@ -42,7 +42,7 @@
                         </div>
                         <div class="row">
                             <div class="col-4 col-lg-2">Specification</div> : 
-                            <div class="col font-weight-normal">{{ $productDetail->specification }}</div>
+                            <div class="col font-weight-normal m-0">{!! $productDetail->specification !!}</div>
                         </div>
                         <div class="row">
                             <div class="col-4 col-lg-2">Category</div> : 
@@ -129,12 +129,6 @@
                                 <label for="specification" class="col-4 col-lg-2 col-form-label">Specification</label>
                                 <div class="col">
                                     <textarea class="form-control @error('specification') is-invalid @enderror" name="specification" id="specification" cols="30" rows="5">{{ old('specification', $productDetail->specification) }}</textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="company_id" class="col-4 col-lg-2 col-form-label">Company</label>
-                                <div class="col">
-                                    <input type="text" name="company_id" id="company_id" class="form-control @error('company_id') is-invalid @enderror" value="{{ $productDetail->company_name }}" disabled>
                                 </div>
                             </div>
                             <div class="form-group row">

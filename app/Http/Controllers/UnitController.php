@@ -14,7 +14,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        return view('admin.unit', [
+        return view('pages.unit.index', [
             'title' => 'Unit',
             'active' => 'unit',
             'table' => 'active',
@@ -67,7 +67,7 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.unit', [
+        return view('pages.unit.index', [
             'title' => 'Unit',
             'active' => 'unit',
             'table' => 'active',

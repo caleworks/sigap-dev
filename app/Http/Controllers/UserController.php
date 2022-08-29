@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.user', [
+        return view('pages.user.index', [
             'title' => 'User',
             'active' => 'user',
             'table' => 'active',
@@ -78,7 +78,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.user', [
+        return view('pages.user.index', [
             'title' => 'User',
             'active' => 'user',
             'table' => 'active',
