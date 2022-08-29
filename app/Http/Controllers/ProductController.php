@@ -49,7 +49,6 @@ class ProductController extends Controller
         $rules['name'] = 'required|unique:product_specs|max:255';
         $rules['category_id'] = 'required|numeric';
         $rules['unit_id'] = 'required|numeric';
-        $rules['company_id'] = 'required|numeric';
         $rules['specification'] = 'string';
         $rules['notes'] = 'max:255';
         
@@ -74,7 +73,6 @@ class ProductController extends Controller
             'table' => 'inactive',
             'productDetail' => ProductSpec::with(['productCategories'])
                 ->with(['productUnits'])
-                ->with(['productCompanies'])
                 ->where('product_code', $id)
                 ->firstOrFail(),
             'assets' => Asset::where('product_code', $id)->latest()->limit(10)->get(),

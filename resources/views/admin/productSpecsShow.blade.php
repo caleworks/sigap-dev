@@ -45,10 +45,6 @@
                             <div class="col font-weight-normal">{{ $productDetail->specification }}</div>
                         </div>
                         <div class="row">
-                            <div class="col-4 col-lg-2">Company</div> : 
-                            <div class="col font-weight-normal">{{ $productDetail->productCompanies()->first()->company_name }}</div>
-                        </div>
-                        <div class="row">
                             <div class="col-4 col-lg-2">Category</div> : 
                             <div class="col font-weight-normal">{{ $productDetail->productCategories()->first()->category }}</div>
                         </div>

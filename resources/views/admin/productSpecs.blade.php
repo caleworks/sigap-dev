@@ -88,7 +88,6 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <input type="hidden" name="company_id" value="28">
                                 @csrf
                             </div>
                         </div>

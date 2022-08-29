@@ -131,13 +131,6 @@
             </div>
 
             <!-- Nav Item - Stock -->
-            <li class="nav-item {{ ($active === 'company' ) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('company') }}">
-                    <i class="fas fa-fw fa-building"></i>
-                    <span>Company</span></a>
-            </li>
-
-            <!-- Nav Item - Stock -->
             <li class="nav-item {{ ($active === 'category' ) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('category') }}">
                     <i class="fas fa-fw fa-indent"></i>
@@ -183,26 +176,6 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
-
-                    <!-- Topbar Search -->
-                    <form method="POST" action="{{ route('company.selectAccess') }}"
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <label for="company_id" class="form-label mr-2">Company</label>
-                            <select id="company_id" name="company_id" class="form-control bg-light border-0 small">
-                                {{-- @foreach($nav_companies as $nav_company)
-                                    <option value="{{ $nav_company['id'] }}" @if($nav_company['id'] == old('company_id')) selected @endif>
-                                        {{ $nav_company['company_name'] }}
-                                    </option>
-                                @endforeach --}}
-                            </select>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-arrow-right fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">

@@ -6,7 +6,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
@@ -44,16 +43,6 @@ Route::middleware('auth')->group(function() {
     });
     
     Route::middleware('auth.admin')->group(function() {
-        // company admin page
-        Route::resource('company', CompanyController::class)->middleware('auth')->middleware('auth.admin');
-        Route::get('company/{company}/access', [CompanyController::class, 'userAccess'])
-            ->name('company.access');
-        Route::post('company/{company}/access', [CompanyController::class, 'grantAccess'])
-            ->name('company.grantAccess');
-        Route::patch('company/select', [CompanyController::class, 'selectAccess'])
-            ->name('company.selectAccess');
-        Route::delete('company/{company}/access/delete', [CompanyController::class, 'destroyAccess']);
-        
         // category admin page
         Route::resource('category', CategoryController::class);
         
