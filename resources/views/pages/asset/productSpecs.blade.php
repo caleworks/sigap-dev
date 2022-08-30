@@ -139,6 +139,9 @@
                                 <td>{{ $item->productCategories()->first()->category }}</td>
                                 <td>{{ $item['notes'] }}</td>
                                 <td>
+                                    <a href="{{ url('asset/create?product_code='.$item['product_code']) }}" class="btn btn-primary btn-circle btn-sm" title="Add New Asset">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
                                     <a href="{{ route('asset.product.show', $item['product_code']) }}" class="btn btn-info btn-circle btn-sm" title="View Details">
                                         <i class="fas fa-info"></i>
                                     </a>

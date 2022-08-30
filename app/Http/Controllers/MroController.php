@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AssetController extends Controller
+class MroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,11 +13,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        return view('pages.asset.index', [
-            'title' => 'Assets',
-            'active' => 'asset',
-            'table' => 'active',
-        ]);
+        //
     }
 
     /**
@@ -27,11 +23,7 @@ class AssetController extends Controller
      */
     public function create()
     {
-        return view('pages.asset.create', [
-            'title' => 'Assets',
-            'active' => 'asset',
-            'table' => 'active',
-        ]);
+        //
     }
 
     /**
