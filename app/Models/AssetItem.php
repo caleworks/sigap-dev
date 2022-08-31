@@ -11,4 +11,6 @@ class AssetItem extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
+
+    protected $dates = ['date_purchase', 'date_deliver'];
 }

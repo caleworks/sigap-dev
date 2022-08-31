@@ -72,12 +72,12 @@
             <div class="card-header py-3 d-sm-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Asset Item</h6>
                 <div>
-                    <a href="{{ route('asset.edit', $assetDetail->asset_code) }}" class="btn btn-sm btn-primary shadow-sm">Add New Asset Item</a>
+                    <a href="{{ route('asset.item.create', $assetDetail->asset_code) }}" class="btn btn-sm btn-primary shadow-sm">Add New Asset Item</a>
                 </div>
             </div>
 
             <!-- Asset List Content -->
-            <div class="card-body text-gray-900 font-weight-bold">
+            <div class="card-body text-gray-900">
                 <div class="table-responsive">
                     <table class="table table-bordered text-gray-900" id="dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -86,6 +86,8 @@
                                 <th>Regist Number</th>
                                 <th>User</th>
                                 <th>Location</th>
+                                <th>Purchase Date</th>
+                                <th>Delivery Date</th>
                                 <th>Notes</th>
                                 <th>Action</th>
                             </tr>
@@ -96,28 +98,36 @@
                                 <th>Regist Number</th>
                                 <th>User</th>
                                 <th>Location</th>
+                                <th>Purchase Date</th>
+                                <th>Delivery Date</th>
                                 <th>Notes</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                            {{-- @foreach ($assets as $item)
+                            @foreach ($assets as $asset)
                             <tr>
-                                <td>{{ $item['asset_code'] }}</td>
-                                <td>{{ $item['asset_name'] }}</td>
-                                <td>{{ $item->assetCategory()->first()->category }}</td>
-                                <td>88 {{ $item->assetUnit()->first()->unit }}</td>
-                                <td>88 {{ $item->assetUnit()->first()->unit }}</td>
+                                <td>{{ $asset->serial_number }}</td>
+                                <td>{{ $asset->regist_number }}</td>
+                                <td>{{ $asset->deliver_to ?? '-' }}</td>
+                                <td>{{ $asset->location ?? '-' }}</td>
+                                <td>{{ $asset->date_purchase->format('d M Y') ?? '-' }}</td>
+                                <td>{{ $asset->date_deliver->format('d M Y') ?? '-' }}</td>
+                                <td>{{ $asset->notes ?? '-' }}</td>
                                 <td>
-                                    <a href="{{ route('asset.create') }}" class="btn btn-primary btn-circle btn-sm" title="Add New Asset Item">
-                                        <i class="fas fa-plus"></i>
+                                    <a href="{{ route('item.edit', $asset->regist_number) }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
+                                        <i class="fas fa-pen"></i>
                                     </a>
-                                    <a href="{{ route('asset.show', $item['asset_code']) }}" class="btn btn-info btn-circle btn-sm" title="View Details">
-                                        <i class="fas fa-info"></i>
-                                    </a>
+                                    <form action="{{ route('item.destroy', $asset->regist_number) }}" class="d-inline" method="POST">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="return confirm('Are you sure to delete {{ $asset->regist_number ?? $asset->serial_number }}?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

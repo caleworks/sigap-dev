@@ -43,13 +43,13 @@
                         <tbody>
                             @foreach ($assets as $item)
                             <tr>
-                                <td>{{ $item['asset_code'] }}</td>
-                                <td>{{ $item['asset_name'] }}</td>
+                                <td>{{ $item->asset_code }}</td>
+                                <td>{{ $item->asset_name }}</td>
                                 <td>{{ $item->assetCategory()->first()->category }}</td>
                                 <td>88 {{ $item->assetUnit()->first()->unit }}</td>
                                 <td>88 {{ $item->assetUnit()->first()->unit }}</td>
                                 <td>
-                                    <a href="{{ route('asset.create') }}" class="btn btn-primary btn-circle btn-sm" title="Add New Asset Item">
+                                    <a href="{{ route('asset.item.create', $item->asset_code) }}" class="btn btn-primary btn-circle btn-sm" title="Add New Asset Item">
                                         <i class="fas fa-plus"></i>
                                     </a>
                                     <a href="{{ route('asset.show', $item['asset_code']) }}" class="btn btn-info btn-circle btn-sm" title="View Details">

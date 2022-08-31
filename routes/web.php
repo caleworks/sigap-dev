@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AssetItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +41,10 @@ Route::middleware('auth')->group(function() {
     
     // assets admin page
     Route::resource('asset', AssetController::class);
+    Route::resource('asset.item', AssetItemController::class)->shallow()->only(
+        'create', 'store', 'edit', 'update', 'destroy'
+    );
 
-    
     Route::middleware('auth.admin')->group(function() {
         // category admin page
         Route::resource('category', CategoryController::class);

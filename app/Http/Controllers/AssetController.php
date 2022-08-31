@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Unit;
 use App\Models\Asset;
 use App\Models\Category;
+use App\Models\AssetItem;
 use Illuminate\Http\Request;
 
 class AssetController extends Controller
@@ -69,16 +70,16 @@ class AssetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   
+        $assetDetail = Asset::where('asset_code', $id)->firstOrFail();
+        $assets = AssetItem::where('asset_id', $assetDetail->id)->get();
+
         return view('pages.asset.show', [
             'title' => 'Assets',
             'active' => 'asset',
             'table' => 'active',
-            'assetDetail' => Asset::with(['assetCategory'])
-                ->with(['assetCategory'])
-                ->where('asset_code', $id)
-                ->firstOrFail(),
-            //'assets' => Asset::where('asset_code', $id)->latest()->limit(10)->get(),
+            'assetDetail' => $assetDetail,
+            'assets' => $assets,
         ]);
     }
 
