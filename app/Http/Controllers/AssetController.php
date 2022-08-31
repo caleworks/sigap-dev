@@ -48,7 +48,18 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $rules['asset_code'] = 'required|unique:assets|max:255';
+        $rules['asset_name'] = 'required|unique:assets|max:255';
+        $rules['category_id'] = 'required|numeric';
+        $rules['unit_id'] = 'required|numeric';
+        $rules['description'] = 'string';
+        $rules['notes'] = 'string|max:255';
+        
+        $validatedData = $request->validate($rules);
+
+        Asset::create($validatedData);
+
+        return redirect()->route('asset.index');
     }
 
     /**
@@ -62,12 +73,12 @@ class AssetController extends Controller
         return view('pages.asset.show', [
             'title' => 'Assets',
             'active' => 'asset',
-            'table' => 'inactive',
+            'table' => 'active',
             'assetDetail' => Asset::with(['assetCategory'])
                 ->with(['assetCategory'])
                 ->where('asset_code', $id)
                 ->firstOrFail(),
-            //'assets' => Asset::where('product_code', $id)->latest()->limit(10)->get(),
+            //'assets' => Asset::where('asset_code', $id)->latest()->limit(10)->get(),
         ]);
     }
 
@@ -98,7 +109,30 @@ class AssetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
+        $asset = Asset::whereId($id)->first();
+
+        if($request->asset_code != $asset->asset_code) {
+            $rules['asset_code'] = 'required|unique:assets|max:255';
+        } else {
+            $rules['asset_code'] = 'required|max:255';
+        }
+
+        if($request->asset_name != $asset->asset_name) {
+            $rules['asset_name'] = 'required|unique:assets|max:255';
+        } else {
+            $rules['asset_name'] = 'required|max:255';
+        }
+
+        $rules['category_id'] = 'required|numeric';
+        $rules['unit_id'] = 'required|numeric';
+        $rules['specification'] = '';
+        $rules['notes'] = 'max:255';
+        
+        $validatedData = $request->validate($rules);
+
+        $asset->update($validatedData);
+
+        return redirect()->route('asset.show', $asset->asset_code);
     }
 
     /**
@@ -110,6 +144,6 @@ class AssetController extends Controller
     public function destroy($id)
     {
         Asset::destroy($id);
-        return redirect('asset.index');
+        return redirect()->route('asset.index');
     }
 }

@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <!-- Product Detail Content -->
+            <!-- Asset Detail Content -->
             <div class="card-body text-gray-900 font-weight-bold">
                 <div class="row">
                     <div class="col-md-8">
@@ -52,11 +52,11 @@
                         </div>
                         <div class="row">
                             <div class="col-4 col-lg-2">Last Update</div> : 
-                            <div class="col font-weight-normal">{{ $assetDetail->updated_at }}</div>
+                            <div class="col font-weight-normal">{{ $assetDetail->updated_at->format('d M Y H:i') }}</div>
                         </div>
                         <div class="row">
                             <div class="col-4 col-lg-2">Date Created</div> : 
-                            <div class="col font-weight-normal">{{ $assetDetail->created_at }}</div>
+                            <div class="col font-weight-normal">{{ $assetDetail->created_at->format('d M Y H:i') }}</div>
                         </div>
                         <div class="row">
                             <div class="col-4 col-lg-2">Notes</div> : 
@@ -67,6 +67,7 @@
             </div>
         </div>
 
+        <!-- Secondary Content -->
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-sm-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Asset Item</h6>
@@ -75,10 +76,50 @@
                 </div>
             </div>
 
-            <!-- Product Detail Content -->
+            <!-- Asset List Content -->
             <div class="card-body text-gray-900 font-weight-bold">
-                <div class="row">
-
+                <div class="table-responsive">
+                    <table class="table table-bordered text-gray-900" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Serial Number</th>
+                                <th>Regist Number</th>
+                                <th>User</th>
+                                <th>Location</th>
+                                <th>Notes</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Serial Number</th>
+                                <th>Regist Number</th>
+                                <th>User</th>
+                                <th>Location</th>
+                                <th>Notes</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {{-- @foreach ($assets as $item)
+                            <tr>
+                                <td>{{ $item['asset_code'] }}</td>
+                                <td>{{ $item['asset_name'] }}</td>
+                                <td>{{ $item->assetCategory()->first()->category }}</td>
+                                <td>88 {{ $item->assetUnit()->first()->unit }}</td>
+                                <td>88 {{ $item->assetUnit()->first()->unit }}</td>
+                                <td>
+                                    <a href="{{ route('asset.create') }}" class="btn btn-primary btn-circle btn-sm" title="Add New Asset Item">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
+                                    <a href="{{ route('asset.show', $item['asset_code']) }}" class="btn btn-info btn-circle btn-sm" title="View Details">
+                                        <i class="fas fa-info"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach --}}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
