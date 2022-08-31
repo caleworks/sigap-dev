@@ -1,14 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MroController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\AssetController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AssetController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,13 +34,13 @@ Route::middleware('auth')->group(function() {
     // dashboard page
     Route::get('dashboard', [HomeController::class, 'index'])
         ->name('dashboard');
+
+    // mro admin page
+    Route::resource('stock', MroController::class);
     
     // assets admin page
-    Route::name('asset.')->prefix('asset')->group(function() {
-        Route::resource('/', AssetController::class);
-        Route::resource('product', ProductController::class);
-    
-    });
+    Route::resource('asset', AssetController::class);
+
     
     Route::middleware('auth.admin')->group(function() {
         // category admin page

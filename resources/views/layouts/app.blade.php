@@ -83,26 +83,11 @@
                     <span>MRO Stock Status</span></a>
             </li>
 
-            <!-- Nav Item - Asset Item -->
-            <li class="nav-item {{ ($active === 'addmro' ) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('asset') }}">
-                    <i class="fas fa-fw fa-box-open"></i>
-                    <span>Add/Edit MRO Item</span></a>
-            </li>
-
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Assets -->
             <li class="nav-item {{ ($active === 'asset' ) ? 'active' : '' }}">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="{{ url('asset') }}">
                     <i class="fas fa-fw fa-laptop"></i>
-                    <span>Assets</span>
-                </a>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ url('asset') }}">Assets</a>
-                        <a class="collapse-item" href="{{ url('asset/product') }}">Product Specs</a>
-                    </div>
-                </div>
+                    <span>Assets</span></a>
             </li>
 
             <!-- Nav Item - Pages Collapse Menu -->

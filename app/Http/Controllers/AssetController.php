@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unit;
+use App\Models\Asset;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class AssetController extends Controller
@@ -17,6 +20,7 @@ class AssetController extends Controller
             'title' => 'Assets',
             'active' => 'asset',
             'table' => 'active',
+            'assets' => Asset::with(['assetCategory'])->with(['assetUnit'])->get(),
         ]);
     }
 
@@ -31,6 +35,8 @@ class AssetController extends Controller
             'title' => 'Assets',
             'active' => 'asset',
             'table' => 'active',
+            'categories' => Category::all(),
+            'units' => Unit::all(),
         ]);
     }
 
@@ -42,7 +48,7 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**
@@ -53,7 +59,16 @@ class AssetController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('pages.asset.show', [
+            'title' => 'Assets',
+            'active' => 'asset',
+            'table' => 'inactive',
+            'assetDetail' => Asset::with(['assetCategory'])
+                ->with(['assetCategory'])
+                ->where('asset_code', $id)
+                ->firstOrFail(),
+            //'assets' => Asset::where('product_code', $id)->latest()->limit(10)->get(),
+        ]);
     }
 
     /**
@@ -64,7 +79,14 @@ class AssetController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('pages.asset.edit', [
+            'title' => 'Assets',
+            'active' => 'asset',
+            'table' => 'inactive',
+            'assetDetail' => Asset::where('asset_code', $id)->firstOrFail(),
+            'categories' => Category::all(),
+            'units' => Unit::all(),
+        ]);
     }
 
     /**
@@ -76,7 +98,7 @@ class AssetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $request;
     }
 
     /**
@@ -87,6 +109,7 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Asset::destroy($id);
+        return redirect('asset.index');
     }
 }
