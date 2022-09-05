@@ -11,7 +11,7 @@
 
         <!-- Main Content -->
         <div class="card shadow mb-4">
-            <form action="{{ route('asset.item.store', $assetDetail->asset_code) }}" method="post">
+            <form action="{{ route('asset.item.store', $assetDetail->id) }}" enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="card-header py-3 d-sm-flex align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Input Data for New {{ $assetDetail->asset_name }}</h6>
@@ -35,25 +35,27 @@
                                     <li class="mb-3">{{ $assetDetail->assetCategory()->first()->category }}</li>
                                     <li class="small font-weight-bold">Description</li>
                                     <li class="mb-3">{{ $assetDetail->description }}</li>
+                                    <li class="small font-weight-bold">Notes</li>
+                                    <li class="mb-3">{{ $assetDetail->notes }}</li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md-9 font-weight-bold">
                             <div class="row m-3">
+                                <label for="regist_number" class="form-label">Regist Number</label>
+                                <input type="text" name="regist_number" id="regist_number" class="form-control @error('regist_number') is-invalid @enderror" 
+                                placeholder="" value="{{ old('regist_number') }}">
+                                @error('regist_number')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="row m-3">
                                 <label for="serial_number" class="form-label">Serial Number</label>
                                 <input type="text" name="serial_number" id="serial_number" class="form-control @error('serial_number') is-invalid @enderror" 
                                     placeholder="" value="{{ old('serial_number') }}">
                                 @error('serial_number')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="row m-3">
-                                <label for="regist_number" class="form-label">Regist Number</label>
-                                <input type="text" name="regist_number" id="regist_number" class="form-control @error('regist_number') is-invalid @enderror" 
-                                    placeholder="" value="{{ old('regist_number') }}">
-                                @error('regist_number')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -83,7 +85,7 @@
                                 <div class="col-md-4">
                                     <label for="date_purchase" class="form-label">Purchase Date</label>
                                     <input type="text" name="date_purchase" id='datetimepicker4' class="form-control @error('date_purchase') is-invalid @enderror" 
-                                        placeholder="" value="{{ old('date_purchase') }}">
+                                        placeholder="YYYY-MM-DD" value="{{ old('date_purchase') }}">
                                     @error('date_purchase')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -93,7 +95,7 @@
                                 <div class="col-md-4">
                                     <label for="date_deliver" class="form-label">Delivery Date</label>
                                     <input type="text" name="date_deliver" id="location" class="form-control @error('date_deliver') is-invalid @enderror" 
-                                        placeholder="" value="{{ old('date_deliver') }}">
+                                        placeholder="YYYY-MM-DD" value="{{ old('date_deliver') }}">
                                     @error('date_deliver')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -101,10 +103,10 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="upload_bast" class="form-label">Upload BAST</label>
-                                    <input type="file" name="files" id="upload_bast" accept="application/pdf" class="form-control @error('upload_bast') is-invalid @enderror" 
-                                        placeholder="Upload File"" value="{{ old('upload_bast') }}">
-                                    @error('upload_bast')
+                                    <label for="files" class="form-label">Upload BAST</label>
+                                    <input type="file" name="files" id="files" accept="application/pdf" class="form-control @error('files') is-invalid @enderror" 
+                                        placeholder="Upload File" value="{{ old('files') }}">
+                                    @error('files')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

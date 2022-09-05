@@ -52,11 +52,11 @@
                         </div>
                         <div class="row">
                             <div class="col-4 col-lg-2">Last Update</div> : 
-                            <div class="col font-weight-normal">{{ $assetDetail->updated_at->format('d M Y H:i') }}</div>
+                            <div class="col font-weight-normal">{{ optional($assetDetail->updated_at)->format('d M Y H:i') ?? '-' }}</div>
                         </div>
                         <div class="row">
                             <div class="col-4 col-lg-2">Date Created</div> : 
-                            <div class="col font-weight-normal">{{ $assetDetail->created_at->format('d M Y H:i') }}</div>
+                            <div class="col font-weight-normal">{{ optional($assetDetail->created_at)->format('d M Y H:i') ?? '-' }}</div>
                         </div>
                         <div class="row">
                             <div class="col-4 col-lg-2">Notes</div> : 
@@ -82,8 +82,8 @@
                     <table class="table table-bordered text-gray-900" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Serial Number</th>
                                 <th>Regist Number</th>
+                                <th>Serial Number</th>
                                 <th>User</th>
                                 <th>Location</th>
                                 <th>Purchase Date</th>
@@ -94,8 +94,8 @@
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Serial Number</th>
                                 <th>Regist Number</th>
+                                <th>Serial Number</th>
                                 <th>User</th>
                                 <th>Location</th>
                                 <th>Purchase Date</th>
@@ -107,12 +107,12 @@
                         <tbody>
                             @foreach ($assets as $asset)
                             <tr>
-                                <td>{{ $asset->serial_number }}</td>
                                 <td>{{ $asset->regist_number }}</td>
+                                <td>{{ $asset->serial_number }}</td>
                                 <td>{{ $asset->deliver_to ?? '-' }}</td>
                                 <td>{{ $asset->location ?? '-' }}</td>
-                                <td>{{ $asset->date_purchase->format('d M Y') ?? '-' }}</td>
-                                <td>{{ $asset->date_deliver->format('d M Y') ?? '-' }}</td>
+                                <td>{{ optional($asset->date_purchase)->format('d M Y') ?? '-' }}</td>
+                                <td>{{ optional($asset->date_deliver)->format('d M Y') ?? '-' }}</td>
                                 <td>{{ $asset->notes ?? '-' }}</td>
                                 <td>
                                     <a href="{{ route('item.edit', $asset->regist_number) }}" class="btn btn-warning btn-circle btn-sm" title="Edit">

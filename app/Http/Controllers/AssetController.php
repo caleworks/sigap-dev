@@ -35,7 +35,7 @@ class AssetController extends Controller
         return view('pages.asset.create', [
             'title' => 'Assets',
             'active' => 'asset',
-            'table' => 'active',
+            'table' => 'inactive',
             'categories' => Category::all(),
             'units' => Unit::all(),
         ]);
@@ -53,8 +53,8 @@ class AssetController extends Controller
         $rules['asset_name'] = 'required|unique:assets|max:255';
         $rules['category_id'] = 'required|numeric';
         $rules['unit_id'] = 'required|numeric';
-        $rules['description'] = 'string';
-        $rules['notes'] = 'string|max:255';
+        $rules['description'] = 'string|nullable';
+        $rules['notes'] = 'string|nullable|max:255';
         
         $validatedData = $request->validate($rules);
 
@@ -126,8 +126,8 @@ class AssetController extends Controller
 
         $rules['category_id'] = 'required|numeric';
         $rules['unit_id'] = 'required|numeric';
-        $rules['specification'] = '';
-        $rules['notes'] = 'max:255';
+        $rules['description'] = 'string|nullable';
+        $rules['notes'] = 'string|nullable|max:255';
         
         $validatedData = $request->validate($rules);
 

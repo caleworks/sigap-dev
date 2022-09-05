@@ -41,9 +41,8 @@ Route::middleware('auth')->group(function() {
     
     // assets admin page
     Route::resource('asset', AssetController::class);
-    Route::resource('asset.item', AssetItemController::class)->shallow()->only(
-        'create', 'store', 'edit', 'update', 'destroy'
-    );
+    Route::resource('asset.item', AssetItemController::class)->shallow()->except('index', 'show');
+    Route::patch('item/{item}/deletepdf', [AssetItemController::class, 'delete_pdf'])->name('delete_pdf');
 
     Route::middleware('auth.admin')->group(function() {
         // category admin page
