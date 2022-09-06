@@ -7,6 +7,7 @@ use App\Models\Asset;
 use App\Models\Category;
 use App\Models\AssetItem;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class AssetController extends Controller
 {
@@ -21,7 +22,17 @@ class AssetController extends Controller
             'title' => 'Assets',
             'active' => 'asset',
             'table' => 'active',
-            'assets' => Asset::with(['assetCategory'])->with(['assetUnit'])->get(),
+            'assets' => Asset::withCount('assetItems')->withCount([
+                'assetItems',
+                'assetItems as readyItems' => function (Builder $query) {
+                    $query->where('status', 'ready');
+                },
+            ])->withCount([
+                'assetItems',
+                'assetItems as deliveredItems' => function (Builder $query) {
+                    $query->where('status', 'delivered');
+                },
+            ])->get(),
         ]);
     }
 

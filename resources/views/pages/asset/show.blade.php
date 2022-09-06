@@ -88,7 +88,7 @@
                                 <th>Location</th>
                                 <th>Purchase Date</th>
                                 <th>Delivery Date</th>
-                                <th>Notes</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -100,7 +100,7 @@
                                 <th>Location</th>
                                 <th>Purchase Date</th>
                                 <th>Delivery Date</th>
-                                <th>Notes</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -113,7 +113,7 @@
                                 <td>{{ $asset->location ?? '-' }}</td>
                                 <td>{{ optional($asset->date_purchase)->format('d M Y') ?? '-' }}</td>
                                 <td>{{ optional($asset->date_deliver)->format('d M Y') ?? '-' }}</td>
-                                <td>{{ $asset->notes ?? '-' }}</td>
+                                <td>{{ $asset->status ?? '-' }}</td>
                                 <td>
                                     <a href="{{ route('item.edit', $asset->regist_number) }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
                                         <i class="fas fa-pen"></i>

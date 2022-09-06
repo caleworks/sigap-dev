@@ -19,6 +19,7 @@ class CreateAssetItemsTable extends Migration
             $table->string('asset_code');
             $table->string('serial_number')->unique();
             $table->string('regist_number')->nullable()->unique();
+            $table->string('status')->default('ready');
             $table->string('deliver_to')->nullable();
             $table->string('location')->nullable();
             $table->date('date_purchase')->nullable();

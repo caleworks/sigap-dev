@@ -49,10 +49,11 @@ class AssetItemController extends Controller
     {
         $rules['serial_number'] = 'required|unique:asset_items|max:255';
         $rules['regist_number'] = 'required|unique:asset_items|max:255';
-        $rules['deliver_to'] = 'max:255';
+        $rules['status'] = 'required|in:ready,delivered,maintenance,broken,other';
+        $rules['deliver_to'] = 'max:255|required_if:status,delivered';
         $rules['location'] = 'max:255';
         $rules['date_purchase'] = 'required|date_format:Y-m-d';
-        $rules['date_deliver'] = 'nullable|date_format:Y-m-d';
+        $rules['date_deliver'] = 'nullable|date_format:Y-m-d|required_if:status,delivered';
         $rules['files'] = 'nullable|file|mimes:pdf';
         $rules['notes'] = 'max:255';
         
@@ -118,11 +119,12 @@ class AssetItemController extends Controller
         } else {
             $rules['serial_number'] = 'required|max:255';
         }
-
-        $rules['deliver_to'] = 'max:255';
+        
+        $rules['status'] = 'required|in:ready,delivered,maintenance,broken,other';
+        $rules['deliver_to'] = 'max:255|required_if:status,delivered';
         $rules['location'] = 'max:255';
         $rules['date_purchase'] = 'required|date_format:Y-m-d';
-        $rules['date_deliver'] = 'nullable|date_format:Y-m-d';
+        $rules['date_deliver'] = 'nullable|date_format:Y-m-d|required_if:status,delivered';
         $rules['files'] = 'nullable|file|mimes:pdf';
         $rules['notes'] = 'max:255';
         

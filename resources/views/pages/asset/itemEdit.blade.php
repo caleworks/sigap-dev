@@ -86,25 +86,52 @@
                                     </div>
                                 @enderror
                             </div>
-                            <div class="row m-3">
-                                <label for="deliver_to" class="form-label">User</label>
-                                <input type="text" name="deliver_to" id="deliver_to" class="form-control @error('deliver_to') is-invalid @enderror" 
-                                    placeholder="" value="{{ old('deliver_to', $assetItem->deliver_to) }}">
-                                @error('deliver_to')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-                            <div class="row m-3">
-                                <label for="location" class="form-label">Location</label>
-                                <input type="text" name="location" id="location" class="form-control @error('location') is-invalid @enderror" 
-                                    placeholder="" value="{{ old('location', $assetItem->location) }}">
-                                @error('location')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="row mx-1 mb-3">
+                                <div class="col-md-4">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select id="status" name="status" class="form-control @error('status') is-invalid @enderror">
+                                        <option value="ready" @if(old('status', $assetItem->status) == "ready") selected @endif>
+                                            Ready
+                                        </option>
+                                        <option value="delivered" @if(old('status', $assetItem->status) == "delivered") selected @endif>
+                                            Delivered
+                                        </option>
+                                        <option value="maintenance" @if(old('status', $assetItem->status) == "maintenance") selected @endif>
+                                            Maintenance
+                                        </option>
+                                        <option value="broken" @if(old('status', $assetItem->status) == "broken") selected @endif>
+                                            Damaged/Broken
+                                        </option>
+                                        <option value="other" @if(old('status', $assetItem->status) == "other") selected @endif>
+                                            Other
+                                        </option>
+                                    </select>
+                                    @error('status')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="deliver_to" class="form-label">User</label>
+                                    <input type="text" name="deliver_to" id="deliver_to" class="form-control @error('deliver_to') is-invalid @enderror" 
+                                        placeholder="" value="{{ old('deliver_to', $assetItem->deliver_to) }}">
+                                    @error('deliver_to')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" name="location" id="location" class="form-control @error('location') is-invalid @enderror" 
+                                        placeholder="" value="{{ old('location', $assetItem->location) }}">
+                                    @error('location')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="row m-1">
                                 <div class="col-md-4">

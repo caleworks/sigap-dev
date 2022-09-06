@@ -25,8 +25,9 @@
                                 <th>Asset Code</th>
                                 <th>Asset Name</th>
                                 <th>Category</th>
-                                <th>Used Assets</th>
-                                <th>Ready to Use</th>
+                                <th>Delivered</th>
+                                <th>Ready</th>
+                                <th>All Items</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -35,8 +36,9 @@
                                 <th>Asset Code</th>
                                 <th>Asset Name</th>
                                 <th>Category</th>
-                                <th>Used Assets</th>
-                                <th>Ready to Use</th>
+                                <th>Delivered</th>
+                                <th>Ready</th>
+                                <th>All Items</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -46,8 +48,9 @@
                                 <td>{{ $item->asset_code }}</td>
                                 <td>{{ $item->asset_name }}</td>
                                 <td>{{ $item->assetCategory()->first()->category }}</td>
-                                <td>88 {{ $item->assetUnit()->first()->unit }}</td>
-                                <td>88 {{ $item->assetUnit()->first()->unit }}</td>
+                                <td>{{ $item->deliveredItems }} {{ $item->assetUnit()->first()->unit }}</td>
+                                <td>{{ $item->readyItems }} {{ $item->assetUnit()->first()->unit }}</td>
+                                <td>{{ $item->asset_items_count }} {{ $item->assetUnit()->first()->unit }}</td>
                                 <td>
                                     <a href="{{ route('asset.item.create', $item->asset_code) }}" class="btn btn-primary btn-circle btn-sm" title="Add New Asset Item">
                                         <i class="fas fa-plus"></i>
