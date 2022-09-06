@@ -27,41 +27,52 @@
             </div>
 
             <!-- Asset Detail Content -->
-            <div class="card-body text-gray-900 font-weight-bold">
+            <div class="card-body text-gray-900">
                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="row m-3">
+                            <ul class="list-unstyled mb-0">
+                                <li class="small font-weight-bold">Asset Code</li>
+                                <li class="mb-3">{{ $assetDetail->asset_code }}</li>
+                                <li class="small font-weight-bold">Asset Name</li>
+                                <li class="mb-3">{{ $assetDetail->asset_name }}</li>
+                                <li class="small font-weight-bold">Category</li>
+                                <li class="mb-3">{{ $assetDetail->assetCategory()->first()->category }}</li>
+                                <li class="small font-weight-bold">Description</li>
+                                <li class="mb-3">{{ $assetDetail->description }}</li>
+                                <li class="small font-weight-bold">Notes</li>
+                                <li class="">{{ $assetDetail->notes }}</li>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-4 col-lg-2">Asset Code</div> : 
-                            <div class="col font-weight-normal">{{ $assetDetail->asset_code }}</div>
+                        <div class="row p-3">
+                            <div class="col-md-4 mb-3">
+                                <span class="small font-weight-bold">Count of {{ $assetDetail->asset_name }} Item(s)</span>
+                                <div class="h2">{{ $assetDetail->asset_items_count }} <small>{{ $assetDetail->assetUnit()->first()->unit }}</small></div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <span class="small font-weight-bold">Ready Item(s)</span>
+                                <div class="h2">{{ $assetDetail->readyItems }} <small>{{ $assetDetail->assetUnit()->first()->unit }}</small></div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <span class="small font-weight-bold">Delivered Item(s)</span>
+                                <div class="h2">{{ $assetDetail->deliveredItems }} <small>{{ $assetDetail->assetUnit()->first()->unit }}</small></div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <span class="small font-weight-bold">Maintenance Item(s)</span>
+                                <div class="h2">{{ $assetDetail->maintenanceItems }} <small>{{ $assetDetail->assetUnit()->first()->unit }}</small></div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <span class="small font-weight-bold">Damaged/Broken Item(s)</span>
+                                <div class="h2">{{ $assetDetail->brokenItems }} <small>{{ $assetDetail->assetUnit()->first()->unit }}</small></div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <span class="small font-weight-bold">Other(s)</span>
+                                <div class="h2">{{ $assetDetail->otherItems }} <small>{{ $assetDetail->assetUnit()->first()->unit }}</small></div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-4 col-lg-2">Asset Name</div> : 
-                            <div class="col font-weight-normal">{{ $assetDetail->asset_name }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 col-lg-2">Description</div> : 
-                            <div class="col font-weight-normal m-0">{!! $assetDetail->description !!}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 col-lg-2">Category</div> : 
-                            <div class="col font-weight-normal">{{ $assetDetail->assetCategory()->first()->category }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 col-lg-2">Unit</div> : 
-                            <div class="col font-weight-normal">{{ $assetDetail->assetUnit()->first()->unit }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 col-lg-2">Last Update</div> : 
-                            <div class="col font-weight-normal">{{ optional($assetDetail->updated_at)->format('d M Y H:i') ?? '-' }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 col-lg-2">Date Created</div> : 
-                            <div class="col font-weight-normal">{{ optional($assetDetail->created_at)->format('d M Y H:i') ?? '-' }}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4 col-lg-2">Notes</div> : 
-                            <div class="col font-weight-normal">{{ $assetDetail->notes }}</div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

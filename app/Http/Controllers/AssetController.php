@@ -81,8 +81,34 @@ class AssetController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   
-        $assetDetail = Asset::where('asset_code', $id)->firstOrFail();
+    {
+        $assetDetail = Asset::withCount('assetItems')->withCount([
+            'assetItems',
+            'assetItems as readyItems' => function (Builder $query) {
+                $query->where('status', 'ready');
+            },
+        ])->withCount([
+            'assetItems',
+            'assetItems as deliveredItems' => function (Builder $query) {
+                $query->where('status', 'delivered');
+            },
+        ])->withCount([
+            'assetItems',
+            'assetItems as maintenanceItems' => function (Builder $query) {
+                $query->where('status', 'maintenance');
+            },
+        ])->withCount([
+            'assetItems',
+            'assetItems as brokenItems' => function (Builder $query) {
+                $query->where('status', 'broken');
+            },
+        ])->withCount([
+            'assetItems',
+            'assetItems as otherItems' => function (Builder $query) {
+                $query->where('status', 'other');
+            },
+        ])->where('asset_code', $id)->firstOrFail();
+
         $assets = AssetItem::where('asset_id', $assetDetail->id)->get();
 
         return view('pages.asset.show', [
