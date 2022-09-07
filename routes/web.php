@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MroController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AssetItemController;
@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function() {
         ->name('dashboard');
 
     // mro admin page
-    Route::resource('stock', MroController::class);
+    Route::resource('stock', StockController::class);
     
     // assets admin page
     Route::resource('asset', AssetController::class);

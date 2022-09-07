@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMroInsTable extends Migration
+class CreateStockOutsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateMroInsTable extends Migration
      */
     public function up()
     {
-        Schema::create('mro_ins', function (Blueprint $table) {
+        Schema::create('stock_outs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('mro_item_id')->references('id')->on('mro_items');
+            $table->foreignId('stock_id')->references('id')->on('stocks');
             $table->integer('amount')->default(0);
+            $table->string('receipent')->nullable();
+            $table->string('usage_for')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateMroInsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mro_ins');
+        Schema::dropIfExists('stock_outs');
     }
 }

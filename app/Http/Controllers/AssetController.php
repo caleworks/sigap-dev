@@ -47,7 +47,7 @@ class AssetController extends Controller
             'title' => 'Assets',
             'active' => 'asset',
             'table' => 'inactive',
-            'categories' => Category::all(),
+            'categories' => Category::where('type', 1)->get(),
             'units' => Unit::all(),
         ]);
     }
@@ -133,7 +133,7 @@ class AssetController extends Controller
             'active' => 'asset',
             'table' => 'inactive',
             'assetDetail' => Asset::where('asset_code', $id)->firstOrFail(),
-            'categories' => Category::all(),
+            'categories' => Category::where('type', 1)->get(),
             'units' => Unit::all(),
         ]);
     }

@@ -33,9 +33,7 @@ class AssetItemController extends Controller
             'title' => 'Assets',
             'active' => 'asset',
             'table' => 'inactive',
-            'assetDetail' => Asset::where('asset_code', $asset_code)->first(),
-            'categories' => Category::all(),
-            'units' => Unit::all(),
+            'assetDetail' => Asset::where('asset_code', $asset_code)->firstOrFail(),
         ]);
     }
 
@@ -63,7 +61,7 @@ class AssetItemController extends Controller
 
         if($request->hasFile('files'))
         {
-            $path = $request->file('files')->storeAs('public/bast', $validatedData['regist_number'].'.pdf');
+            $path = $request->file('files')->storeAs('public/bast', $item->regist_number.'_'.Str::random(8).'.pdf');
             $validatedData['scan_bast'] = $path;
         }
 
@@ -99,8 +97,6 @@ class AssetItemController extends Controller
             'table' => 'inative',
             'assetItem' => $assetItem,
             'assetDetail' => Asset::where('asset_code', $assetItem->asset_code)->first(),
-            'categories' => Category::all(),
-            'units' => Unit::all(),
         ]);
     }
 

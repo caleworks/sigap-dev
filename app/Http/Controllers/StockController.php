@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Unit;
+use App\Models\Stock;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
-class MroController extends Controller
+class StockController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +16,12 @@ class MroController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages.stock.index', [
+            'title' => 'MRO Stock',
+            'active' => 'stock',
+            'table' => 'active',
+            'mro_items' => Stock::get(),
+        ]);
     }
 
     /**
@@ -23,7 +31,13 @@ class MroController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.stock.create', [
+            'title' => 'MRO Stock',
+            'active' => 'stock',
+            'table' => 'inactive',
+            'categories' => Category::all(),
+            'units' => Unit::all(),
+        ]);
     }
 
     /**
