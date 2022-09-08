@@ -6,7 +6,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ $title }} Detail</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ $title }} &raquo; {{ $assetDetail->asset_name }} &raquo; Edit</h1>
         </div>
 
         <!-- Main Content -->
@@ -65,6 +65,11 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('category_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="row m-3">
                                 <label for="unit_id" class="form-label">Unit</label>
@@ -75,6 +80,11 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @error('unit_id')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="row m-3">
                                 <label for="name" class="form-label">Notes</label>

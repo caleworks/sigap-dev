@@ -20,7 +20,7 @@ class StockController extends Controller
             'title' => 'MRO Stock',
             'active' => 'stock',
             'table' => 'active',
-            'mro_items' => Stock::get(),
+            'stocks' => Stock::get(),
         ]);
     }
 
@@ -35,7 +35,7 @@ class StockController extends Controller
             'title' => 'MRO Stock',
             'active' => 'stock',
             'table' => 'inactive',
-            'categories' => Category::all(),
+            'categories' => Category::where('type', 0)->get(),
             'units' => Unit::all(),
         ]);
     }
@@ -48,7 +48,21 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules['stock_code'] = 'required|unique:stocks|max:25';
+        $rules['stock_name'] = 'required|unique:stocks|max:255';
+        $rules['fix_stock'] = 'required|integer';
+        $rules['max_stock'] = 'required|integer';
+        $rules['stock'] = 'required|integer';
+        $rules['category_id'] = 'required|exists:categories,id|numeric';
+        $rules['unit_id'] = 'required|exists:units,id|numeric';
+        $rules['stored_at'] = 'string|nullable|max:50';
+        $rules['notes'] = 'string|nullable|max:255';
+        
+        $validatedData = $request->validate($rules);
+
+        Stock::create($validatedData);
+
+        return redirect()->route('stock.index');
     }
 
     /**
@@ -70,7 +84,14 @@ class StockController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('pages.stock.edit', [
+            'title' => 'MRO Stock',
+            'active' => 'stock',
+            'table' => 'inactive',
+            'stockDetail' => Stock::where('stock_code', $id)->firstOrFail(),
+            'categories' => Category::where('type', 0)->get(),
+            'units' => Unit::all(),
+        ]);
     }
 
     /**
@@ -80,9 +101,32 @@ class StockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Stock $stock)
     {
-        //
+        if($request->stock_code != $stock->stock_code) {
+            $rules['stock_code'] = 'required|unique:stocks|max:25';
+        } else {
+            $rules['stock_code'] = 'required|max:25';
+        }
+
+        if($request->stock_name != $stock->stock_name) {
+            $rules['stock_name'] = 'required|unique:stocks|max:255';
+        } else {
+            $rules['stock_name'] = 'required|max:255';
+        }
+
+        $rules['fix_stock'] = 'required|integer';
+        $rules['max_stock'] = 'required|integer';
+        $rules['category_id'] = 'required|exists:categories,id|numeric';
+        $rules['unit_id'] = 'required|exists:units,id|numeric';
+        $rules['stored_at'] = 'string|nullable|max:50';
+        $rules['notes'] = 'string|nullable|max:255';
+        
+        $validatedData = $request->validate($rules);
+
+        $stock->update($validatedData);
+
+        return redirect()->route('stock.index');
     }
 
     /**
@@ -93,6 +137,7 @@ class StockController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Stock::destroy($id);
+        return redirect()->route('stock.index');
     }
 }

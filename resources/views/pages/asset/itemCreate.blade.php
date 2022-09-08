@@ -6,7 +6,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Create New {{ $assetDetail->asset_name }}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ $title }} &raquo; {{ $assetDetail->asset_name }} &raquo; New</h1>
         </div>
 
         <!-- Main Content -->
@@ -34,9 +34,9 @@
                                     <li class="small font-weight-bold">Category</li>
                                     <li class="mb-3">{{ $assetDetail->assetCategory()->first()->category }}</li>
                                     <li class="small font-weight-bold">Description</li>
-                                    <li class="mb-3">{{ $assetDetail->description }}</li>
+                                    <li class="mb-3">{{ $assetDetail->description ?? '-' }}</li>
                                     <li class="small font-weight-bold">Notes</li>
-                                    <li class="mb-3">{{ $assetDetail->notes }}</li>
+                                    <li class="mb-3">{{ $assetDetail->notes ?? '-' }}</li>
                                 </ul>
                             </div>
                         </div>

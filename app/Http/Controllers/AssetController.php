@@ -62,8 +62,8 @@ class AssetController extends Controller
     {
         $rules['asset_code'] = 'required|unique:assets|max:255';
         $rules['asset_name'] = 'required|unique:assets|max:255';
-        $rules['category_id'] = 'required|numeric';
-        $rules['unit_id'] = 'required|numeric';
+        $rules['category_id'] = 'required|exists:categories,id|numeric';
+        $rules['unit_id'] = 'required|exists:units,id|numeric';
         $rules['description'] = 'string|nullable';
         $rules['notes'] = 'string|nullable|max:255';
         
@@ -161,8 +161,8 @@ class AssetController extends Controller
             $rules['asset_name'] = 'required|max:255';
         }
 
-        $rules['category_id'] = 'required|numeric';
-        $rules['unit_id'] = 'required|numeric';
+        $rules['category_id'] = 'required|exists:categories,id|numeric';
+        $rules['unit_id'] = 'required|exists:units,id|numeric';
         $rules['description'] = 'string|nullable';
         $rules['notes'] = 'string|nullable|max:255';
         

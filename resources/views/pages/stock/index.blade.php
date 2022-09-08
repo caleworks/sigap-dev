@@ -6,7 +6,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Maintenance, Repair, and Operation Stock</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
             <a href="{{ route('stock.create') }}" class="d-none d-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-plus fa-sm text-white-50"></i> Add New {{ $title }}
             </a>
@@ -43,21 +43,25 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach ($mro_items as $mro_item)
+                            @foreach ($stocks as $stock)
                             <tr>
-                                <td>{{ $mro_item->mro_code }}</td>
-                                <td>{{ $mro_item->mro_name }}</td>
-                                <td>{{ $mro_item->mroCategory()->first()->category }}</td>
-                                <td>{{ $mro_item->stock }} {{ $mro_item->mroUnit()->first()->unit }}</td>
-                                <td>{{ $mro_item->stored_at }}</td>
-                                <td>{{ $mro_item->notes }}</td>
+                                <td>{{ $stock->stock_code }}</td>
+                                <td>{{ $stock->stock_name }}</td>
+                                <td>{{ $stock->stockCategory()->first()->category }}</td>
+                                <td>{{ $stock->stock }} {{ $stock->stockUnit()->first()->unit }}</td>
+                                <td>{{ $stock->stored_at }}</td>
+                                <td>{{ $stock->notes }}</td>
                                 <td>
-                                    <a href="{{ route('asset.item.create', $mro_item->mro_code) }}" class="btn btn-primary btn-circle btn-sm" title="Add New Asset Item">
-                                        <i class="fas fa-arrow-up"></i>
+                                    <a href="{{ route('stock.edit', $stock->stock_code) }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
+                                        <i class="fas fa-pen"></i>
                                     </a>
-                                    <a href="{{ route('asset.show', $mro_item->mro_code) }}" class="btn btn-info btn-circle btn-sm" title="View Details">
-                                        <i class="fas fa-info"></i>
-                                    </a>
+                                    <form action="{{ route('stock.destroy', $stock->id) }}" class="d-inline" method="POST">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="return confirm('Are you sure to delete {{ $stock->stock_name }}?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
