@@ -17,7 +17,7 @@
                 <div class="card-header py-3 d-sm-flex align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Edit {{ $title }} Data</h6>
                     <div>
-                        <a href="{{ route('stock.index') }}" class="btn btn-secondary shadow-sm">Back</a>
+                        <a href="{{ route('stock.show', $stockDetail->stock_code) }}" class="btn btn-secondary shadow-sm">Back</a>
                         <button type="submit" class="btn btn-primary shadow-sm">
                             Save Changes
                         </button>
@@ -64,7 +64,7 @@
                                 @enderror
                             </div>
                             <div class="row mx-1 mb-3">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="fix_stock" class="form-label">Fix Stock</label>
                                     <input type="text" name="fix_stock" id="fix_stock" class="form-control @error('fix_stock') is-invalid @enderror" 
                                         placeholder="" value="{{ old('fix_stock', $stockDetail->fix_stock) }}">
@@ -74,7 +74,7 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="max_stock" class="form-label">Max Stock</label>
                                     <input type="text" name="max_stock" id="max_stock" class="form-control @error('max_stock') is-invalid @enderror" 
                                         placeholder="" value="{{ old('max_stock', $stockDetail->max_stock) }}">
@@ -84,7 +84,17 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <label for="stock" class="form-label">Stock</label>
+                                    <input type="text" name="stock" id="stock" class="form-control @error('stock') is-invalid @enderror" 
+                                        placeholder="" value="{{ old('stock', $stockDetail->stock) }}" disabled>
+                                    @error('stock')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-3">
                                     <label for="unit_id" class="form-label">Unit</label>
                                     <select id="unit_id" name="unit_id" class="form-control @error('unit_id') is-invalid @enderror">
                                         @foreach($units as $unit)

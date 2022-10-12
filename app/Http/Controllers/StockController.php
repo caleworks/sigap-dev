@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Unit;
 use App\Models\Stock;
+use App\Models\StockIn;
 use App\Models\Category;
+use App\Models\StockOut;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -73,7 +76,19 @@ class StockController extends Controller
      */
     public function show($id)
     {
-        //
+        $stockDetail = Stock::where('stock_code', $id)->firstOrFail();
+
+        $stockin = StockIn::where('stock_id', $stockDetail->id)->get();
+        $stockout = StockOut::where('stock_id', $stockDetail->id)->get();
+
+        return view('pages.stock.show', [
+            'title' => 'MRO Stock',
+            'active' => 'stock',
+            'table' => 'active',
+            'stockDetail' => $stockDetail,
+            'transactions' => Arr::collapse([$stockin, $stockout]),
+        ]);
+
     }
 
     /**
@@ -126,7 +141,7 @@ class StockController extends Controller
 
         $stock->update($validatedData);
 
-        return redirect()->route('stock.index');
+        return redirect()->route('stock.show', $stock->stock_code);
     }
 
     /**
@@ -139,5 +154,27 @@ class StockController extends Controller
     {
         Stock::destroy($id);
         return redirect()->route('stock.index');
+    }
+
+    public function restock()
+    {
+        return view('pages.stock.restock', [
+            'title' => 'Stock In Transaction',
+            'active' => 'transaction',
+            'table' => 'active',
+            'stock_ins' => StockIn::get(),
+        ]);
+
+    }
+
+    public function stockout()
+    {
+        return view('pages.stock.restock', [
+            'title' => 'Stock In Transaction',
+            'active' => 'transaction',
+            'table' => 'active',
+            'stock_ins' => StockIn::get(),
+        ]);
+
     }
 }

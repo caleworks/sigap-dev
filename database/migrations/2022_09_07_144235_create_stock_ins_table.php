@@ -17,8 +17,11 @@ class CreateStockInsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('stock_id')->references('id')->on('stocks');
+            $table->string('transaction_code')->unique();
             $table->integer('amount')->default(0);
+            $table->string('notes')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

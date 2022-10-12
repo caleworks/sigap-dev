@@ -37,7 +37,9 @@ Route::middleware('auth')->group(function() {
         ->name('dashboard');
 
     // mro admin page
-    Route::resource('stock', StockController::class)->except('show');
+    Route::resource('stock', StockController::class);
+    Route::get('stock/restock', [StockController::class, 'restock'])->name('stock.restock');
+    Route::get('stock/usage', [StockController::class, 'usage'])->name('stock.usage');
     
     // assets admin page
     Route::resource('asset', AssetController::class);

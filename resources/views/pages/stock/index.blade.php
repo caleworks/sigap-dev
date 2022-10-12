@@ -25,9 +25,10 @@
                                 <th>Stock Code</th>
                                 <th>Stock Name</th>
                                 <th>Category</th>
+                                <th>Fix Stock</th>
                                 <th>Stock</th>
-                                <th>Location</th>
-                                <th>Notes</th>
+                                <th>Max Stock</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,9 +37,10 @@
                                 <th>Stock Code</th>
                                 <th>Stock Name</th>
                                 <th>Category</th>
+                                <th>Fix Stock</th>
                                 <th>Stock</th>
-                                <th>Location</th>
-                                <th>Notes</th>
+                                <th>Max Stock</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -48,20 +50,22 @@
                                 <td>{{ $stock->stock_code }}</td>
                                 <td>{{ $stock->stock_name }}</td>
                                 <td>{{ $stock->stockCategory()->first()->category }}</td>
+                                <td>{{ $stock->fix_stock }} {{ $stock->stockUnit()->first()->unit }}</td>
                                 <td>{{ $stock->stock }} {{ $stock->stockUnit()->first()->unit }}</td>
-                                <td>{{ $stock->stored_at }}</td>
-                                <td>{{ $stock->notes }}</td>
+                                <td>{{ $stock->max_stock }} {{ $stock->stockUnit()->first()->unit }}</td>
                                 <td>
-                                    <a href="{{ route('stock.edit', $stock->stock_code) }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
-                                        <i class="fas fa-pen"></i>
+                                    @if ($stock->stock>$stock->max_stock)
+                                    <span class="badge badge-warning" title="Exceeds Max Stock">> Max Stock</span>
+                                    @elseif ($stock->stock<$stock->fix_stock)
+                                    <span class="badge badge-danger" title="Stock is less than Fix Stock">< Fix Stock</span>
+                                    @else
+                                    <span class="badge badge-success" title="Available">On Stock</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a href="{{ route('stock.show', $stock->stock_code) }}" class="btn btn-info btn-circle btn-sm" title="View Details">
+                                        <i class="fas fa-info"></i>
                                     </a>
-                                    <form action="{{ route('stock.destroy', $stock->id) }}" class="d-inline" method="POST">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="return confirm('Are you sure to delete {{ $stock->stock_name }}?')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
                                 </td>
                             </tr>
                             @endforeach

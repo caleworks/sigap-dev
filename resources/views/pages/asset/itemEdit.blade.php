@@ -136,7 +136,7 @@
                             <div class="row m-1">
                                 <div class="col-md-4">
                                     <label for="date_purchase" class="form-label">Purchase Date</label>
-                                    <input type="text" name="date_purchase" id='datetimepicker4' class="form-control @error('date_purchase') is-invalid @enderror" 
+                                    <input type="date" name="date_purchase" id='datetimepicker4' class="form-control @error('date_purchase') is-invalid @enderror" 
                                         placeholder="YYYY-MM-DD" value="{{ old('date_purchase', optional($assetItem->date_purchase)->format('Y-m-d')) }}">
                                     @error('date_purchase')
                                         <div class="invalid-feedback">
@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="date_deliver" class="form-label">Delivery Date</label>
-                                    <input type="text" name="date_deliver" id="location" class="form-control @error('date_deliver') is-invalid @enderror" 
+                                    <input type="date" name="date_deliver" id="location" class="form-control @error('date_deliver') is-invalid @enderror" 
                                         placeholder="YYYY-MM-DD" value="{{ old('date_deliver', optional($assetItem->date_deliver)->format('Y-m-d')) }}">
                                     @error('date_deliver')
                                         <div class="invalid-feedback">
