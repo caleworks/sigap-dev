@@ -77,9 +77,13 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-sm-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Transaction History</h6>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-light btn-sm active">Restock</button>
-                    <button type="button" class="btn btn-light btn-sm">Usage</button>
+                <div>
+                    <a href="#" class="btn btn-outline-dark btn-sm">
+                        <i class="fas fa-arrow-right-to-bracket fa-sm"></i> Restock
+                    </a>
+                    <a href="#" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-arrow-up-from-bracket fa-sm"></i> Stock Out
+                    </a>
                 </div>
                 {{-- <div>
                     <a href="{{ route('stock.item.create', $stockDetail->stock_code) }}" class="btn btn-sm btn-primary shadow-sm">Add New Stock Item</a>
