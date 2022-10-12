@@ -24,6 +24,10 @@ class StockController extends Controller
             'active' => 'stock',
             'table' => 'active',
             'stocks' => Stock::get(),
+            'countAllStock' => Stock::count(),
+            'countOnStock' => Stock::whereBetweenColumns('stock', ['fix_stock', 'max_stock'])->count(),
+            'countOverStock' => Stock::whereColumn('stock', '>', 'max_stock')->count(),
+            'countMinusStock' => Stock::whereColumn('stock', '<', 'fix_stock')->count(),
         ]);
     }
 

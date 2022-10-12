@@ -85,9 +85,6 @@
                         <i class="fas fa-arrow-up-from-bracket fa-sm"></i> Stock Out
                     </a>
                 </div>
-                {{-- <div>
-                    <a href="{{ route('stock.item.create', $stockDetail->stock_code) }}" class="btn btn-sm btn-primary shadow-sm">Add New Stock Item</a>
-                </div> --}}
             </div>
 
             <!-- Stock List Content -->

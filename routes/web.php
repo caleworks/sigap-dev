@@ -36,10 +36,10 @@ Route::middleware('auth')->group(function() {
     Route::get('dashboard', [HomeController::class, 'index'])
         ->name('dashboard');
 
-    // mro admin page
+    // mro stock admin page
     Route::resource('stock', StockController::class);
     Route::get('stock/restock', [StockController::class, 'restock'])->name('stock.restock');
-    Route::get('stock/usage', [StockController::class, 'usage'])->name('stock.usage');
+    Route::get('stock/out', [StockController::class, 'stockout'])->name('stock.out');
     
     // assets admin page
     Route::resource('asset', AssetController::class);
@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function() {
     Route::patch('item/{item}/deletepdf', [AssetItemController::class, 'delete_pdf'])->name('delete_pdf');
 
     Route::middleware('auth.admin')->group(function() {
+
         // category admin page
         Route::resource('category', CategoryController::class);
         
