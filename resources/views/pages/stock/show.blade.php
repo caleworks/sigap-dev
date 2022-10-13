@@ -78,12 +78,12 @@
             <div class="card-header py-3 d-sm-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Transaction History</h6>
                 <div>
-                    <a href="#" class="btn btn-outline-dark btn-sm">
+                    <button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#restockModal">
                         <i class="fas fa-arrow-right-to-bracket fa-sm"></i> Restock
-                    </a>
-                    <a href="#" class="btn btn-outline-primary btn-sm">
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#stockOutModal">
                         <i class="fas fa-arrow-up-from-bracket fa-sm"></i> Stock Out
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -148,6 +148,136 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restock Modal -->
+        <div class="modal fade" id="restockModal" tabindex="-1" aria-labelledby="restockModal" aria-hidden="true" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-gray-900">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="restockModal">Restock Item</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('stock.restock') }}" method="post">
+                        <div class="modal-body">
+                            <div class="justify-content-center">
+                                <div class="row m-3">
+                                    <label for="stock_code" class="form-label">Stock Code</label>
+                                    <input type="text" name="stock_code" id="stock_code" class="form-control @error('stock_code') is-invalid @enderror" 
+                                        placeholder="" value="{{ old('stock_code') }}">
+                                    @error('stock_code')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="row m-3">
+                                    <label for="amount" class="form-label">Amount</label>
+                                    <input type="text" name="amount" id="amount" class="form-control @error('amount') is-invalid @enderror" 
+                                        placeholder="0~999" value="{{ old('amount') }}">
+                                    @error('amount')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="row m-3">
+                                    <label for="notes" class="form-label">Notes</label>
+                                    <textarea class="form-control @error('notes') is-invalid @enderror" name="notes" id="notes" 
+                                        rows="3">{{ old('notes') }}</textarea>
+                                    @error('notes')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                @csrf
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stockout Modal -->
+        <div class="modal fade" id="stockOutModal" tabindex="-1" aria-labelledby="stockOutModal" aria-hidden="true" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-gray-900">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="stockOutModal">Stock Out</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('stock.out') }}" enctype="multipart/form-data" method="post">
+                        <div class="modal-body">
+                            <div class="justify-content-center">
+                                <div class="row m-3">
+                                    <label for="stock_code" class="form-label">Stock Code</label>
+                                    <input type="text" name="stock_code" id="stock_code" class="form-control @error('stock_code') is-invalid @enderror" 
+                                        placeholder="" value="{{ old('stock_code') }}">
+                                    @error('stock_code')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="row m-3">
+                                    <label for="amount" class="form-label">Amount</label>
+                                    <input type="text" name="amount" id="amount" class="form-control @error('amount') is-invalid @enderror" 
+                                        placeholder="0~999" value="{{ old('amount') }}">
+                                    @error('amount')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="row m-3">
+                                    <label for="receipent" class="form-label">Receipent/Requester</label>
+                                    <input type="text" name="receipent" id="receipent" class="form-control @error('receipent') is-invalid @enderror" 
+                                        placeholder="" value="{{ old('receipent') }}">
+                                    @error('receipent')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="row m-3">
+                                    <label for="notes" class="form-label">Notes</label>
+                                    <textarea class="form-control @error('notes') is-invalid @enderror" name="notes" id="notes" 
+                                        rows="3">{{ old('notes') }}</textarea>
+                                    @error('notes')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="row m-3">
+                                    <label for="files" class="form-label">Upload Receipt</label>
+                                    <input type="file" name="files" id="files" accept="application/pdf" class="form-control @error('files') is-invalid @enderror" 
+                                        placeholder="Upload File" value="{{ old('files') }}">
+                                    @error('files')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                @csrf
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

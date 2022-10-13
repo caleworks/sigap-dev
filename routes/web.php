@@ -38,8 +38,8 @@ Route::middleware('auth')->group(function() {
 
     // mro stock admin page
     Route::resource('stock', StockController::class);
-    Route::get('stock/restock', [StockController::class, 'restock'])->name('stock.restock');
-    Route::get('stock/out', [StockController::class, 'stockout'])->name('stock.out');
+    Route::post('stock/restock', [StockController::class, 'restock'])->name('stock.restock');
+    Route::post('stock/out', [StockController::class, 'stockout'])->name('stock.out');
     
     // assets admin page
     Route::resource('asset', AssetController::class);
