@@ -131,12 +131,11 @@
                                 <td>{{ $transaction->amount }}</td>
                                 <td>{{ $transaction->receipent }}</td>
                                 <td>{{ $transaction->notes ?? '-' }}</td>
-                                <td>{{ $transaction->receipt ?? '-' }}</td>
+                                <td>@isset($transaction->receipt)
+                                    <a href="{{ Storage::url($transaction->receipt) }}" target="_blank" rel="noopener noreferrer">Files</a> 
+                                @endisset</td>
                                 <td>
-                                    {{-- <a href="{{ route('item.edit', $stock->regist_number) }}" class="btn btn-warning btn-circle btn-sm" title="Edit">
-                                        <i class="fas fa-pen"></i>
-                                    </a>
-                                    <form action="{{ route('item.destroy', $stock->regist_number) }}" class="d-inline" method="POST">
+                                    {{-- <form action="{{ route('item.destroy', $stock->regist_number) }}" class="d-inline" method="POST">
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-danger btn-circle btn-sm" title="Delete" onclick="return confirm('Are you sure to delete {{ $stock->regist_number ?? $stock->serial_number }}?')">
@@ -168,7 +167,7 @@
                                 <div class="row m-3">
                                     <label for="stock_code" class="form-label">Stock Code</label>
                                     <input type="text" name="stock_code" id="stock_code" class="form-control @error('stock_code') is-invalid @enderror" 
-                                        placeholder="" value="{{ old('stock_code') }}">
+                                        placeholder="" value="{{ $stockDetail->stock_code }}" disabled>
                                     @error('stock_code')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -176,9 +175,19 @@
                                     @enderror
                                 </div>
                                 <div class="row m-3">
-                                    <label for="amount" class="form-label">Amount</label>
-                                    <input type="text" name="amount" id="amount" class="form-control @error('amount') is-invalid @enderror" 
-                                        placeholder="0~999" value="{{ old('amount') }}">
+                                    <label for="stock_name" class="form-label">Stock Name</label>
+                                    <input type="text" name="stock_name" id="stock_name" class="form-control @error('stock_name') is-invalid @enderror" 
+                                        placeholder="" value="{{ $stockDetail->stock_name }}" disabled>
+                                    @error('stock_name')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="row m-3">
+                                    <label for="amount" class="form-label">Amount ( {{ $stockDetail->stockUnit()->first()->unit }} )</label>
+                                    <input type="number" name="amount" id="amount" class="form-control @error('amount') is-invalid @enderror" 
+                                        placeholder="0~999" value="{{ old('amount') }}" required>
                                     @error('amount')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -195,6 +204,7 @@
                                         </div>
                                     @enderror
                                 </div>
+                                <input type="hidden" name="stock_code" id="stock_code" value="{{ $stockDetail->stock_code }}">
                                 @csrf
                             </div>
                         </div>
@@ -223,7 +233,7 @@
                                 <div class="row m-3">
                                     <label for="stock_code" class="form-label">Stock Code</label>
                                     <input type="text" name="stock_code" id="stock_code" class="form-control @error('stock_code') is-invalid @enderror" 
-                                        placeholder="" value="{{ old('stock_code') }}">
+                                        placeholder="" value="{{ $stockDetail->stock_code }}" disabled>
                                     @error('stock_code')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -231,9 +241,19 @@
                                     @enderror
                                 </div>
                                 <div class="row m-3">
-                                    <label for="amount" class="form-label">Amount</label>
+                                    <label for="stock_name" class="form-label">Stock Name</label>
+                                    <input type="text" name="stock_name" id="stock_name" class="form-control @error('stock_name') is-invalid @enderror" 
+                                        placeholder="" value="{{ $stockDetail->stock_name }}" disabled>
+                                    @error('stock_name')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="row m-3">
+                                    <label for="amount" class="form-label">Amount ( {{ $stockDetail->stockUnit()->first()->unit }} )</label>
                                     <input type="text" name="amount" id="amount" class="form-control @error('amount') is-invalid @enderror" 
-                                        placeholder="0~999" value="{{ old('amount') }}">
+                                        placeholder="0~999" value="{{ old('amount') }}" required>
                                     @error('amount')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -243,7 +263,7 @@
                                 <div class="row m-3">
                                     <label for="receipent" class="form-label">Receipent/Requester</label>
                                     <input type="text" name="receipent" id="receipent" class="form-control @error('receipent') is-invalid @enderror" 
-                                        placeholder="" value="{{ old('receipent') }}">
+                                        placeholder="" value="{{ old('receipent') }}" required>
                                     @error('receipent')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -253,7 +273,7 @@
                                 <div class="row m-3">
                                     <label for="notes" class="form-label">Notes</label>
                                     <textarea class="form-control @error('notes') is-invalid @enderror" name="notes" id="notes" 
-                                        rows="3">{{ old('notes') }}</textarea>
+                                        rows="3" required>{{ old('notes') }}</textarea>
                                     @error('notes')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -270,6 +290,7 @@
                                         </div>
                                     @enderror
                                 </div>
+                                <input type="hidden" name="stock_code" id="stock_code" value="{{ $stockDetail->stock_code }}">
                                 @csrf
                             </div>
                         </div>

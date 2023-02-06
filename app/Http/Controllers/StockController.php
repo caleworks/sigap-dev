@@ -8,7 +8,9 @@ use App\Models\StockIn;
 use App\Models\Category;
 use App\Models\StockOut;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
@@ -160,25 +162,61 @@ class StockController extends Controller
         return redirect()->route('stock.index');
     }
 
-    public function restock()
+    public function restock(Request $request)
     {
-        return view('pages.stock.restock', [
-            'title' => 'Stock In Transaction',
-            'active' => 'transaction',
-            'table' => 'active',
-            'stock_ins' => StockIn::get(),
-        ]);
+        $rules['stock_code'] = 'required|exists:stocks,stock_code|max:25';
+        $rules['amount'] = 'required|integer';
+        $rules['notes'] = 'string|nullable|max:255';
+        
+        $validatedData = $request->validate($rules);
+        
+        $stock = Stock::where('stock_code', $request->stock_code)->firstOrFail();
+        $validatedData['stock_id'] = $stock->id;
+        $validatedData['user_id'] = Auth::user()->id;
 
+        //generate transaction_code PPD-G-IN-1022-003
+        $validatedData['transaction_code'] = "PPD-G-IN-" . date('ny') . sprintf("-%03s", abs(StockIn::max('id') + 1));
+
+        //update stock
+        $new_stock = $stock->stock + $request->amount;
+        $stock->update(['stock' => $new_stock]);
+        
+        StockIn::create($validatedData);
+
+        return redirect()->route('stock.show', $request->stock_code);
     }
 
-    public function stockout()
+    public function stockout(Request $request)
     {
-        return view('pages.stock.restock', [
-            'title' => 'Stock In Transaction',
-            'active' => 'transaction',
-            'table' => 'active',
-            'stock_ins' => StockIn::get(),
-        ]);
+        // user_id, stock_id, transaction_code, amount, receipent, notes, receipt
+        $stock = Stock::where('stock_code', $request->stock_code)->firstOrFail();
 
+        $rules['stock_code'] = 'required|exists:stocks,stock_code|max:25';
+        $rules['amount'] = 'required|max:'.$stock->stock.'|integer';
+        $rules['receipent'] = 'required|max:255';
+        $rules['notes'] = 'string|nullable|max:255';
+        $rules['files'] = 'nullable|file|mimes:pdf';
+        
+        $validatedData = $request->validate($rules);
+        $validatedData['stock_id'] = $stock->id;
+        $validatedData['user_id'] = Auth::user()->id;
+
+        //generate transaction_code PPD-G-IN-1022-003
+        $validatedData['transaction_code'] = "PPD-G-OUT-" . date('ny') . sprintf("-%03s", abs(StockOut::max('id') + 1));
+
+        //Upload File Receipt
+        if($request->hasFile('files'))
+        {
+            $path = $request->file('files')->storeAs('public/receipt', $validatedData['transaction_code'].'_'.Str::random(8).'.pdf');
+            $validatedData['receipt'] = $path;
+        }
+
+        //update stock
+        $new_stock = $stock->stock - $request->amount;
+        $stock->update(['stock' => $new_stock]);
+        
+        StockOut::create($validatedData);
+
+        return redirect()->route('stock.show', $request->stock_code);
     }
 }

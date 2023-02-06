@@ -320,6 +320,14 @@
     </script>
     @endisset
 
+    @if ($errors->any())
+    <script>
+        $('#stockOutModal').modal({
+            show: true
+        });
+    </script>
+    @endif
+
     @if ($table == 'active')
     <!-- Page level plugins -->
     <script src="{{ url('assets/vendor/datatables/jquery.dataTables.min.js') }}"></script>
